@@ -1,0 +1,79 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>WorkClass.html</title> <style> html{ font-size: 62.5%; } body > .info *{ margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', Arial, Helvetica, sans-serif; font-size: 1.6rem; font-weight: 400; } body{ display: flex; align-items: center; flex-direction: column; justify-content: flex-start; height: 100vh; } body > .info, body > .components{ width: 100%; max-width: 980px; padding: 20px; } body > .info{ display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; } body > .info p{ font-size: 1.4rem; } body > .info b{ font-weight: 600; font-size: inherit; } body > .info .info-core{ color: #a47cc9; } body > .info .info-int{ color: #ff4343; } body > .info .info-desc{ flex: none; width: 100%; color: #585858; text-align: justify; } body > .components{ flex: 1 1 auto; display: flex; justify-content: flex-start; align-items: flex-start; align-content: flex-start; flex-wrap: wrap; gap: 40px; overflow: auto; -ms-overflow-style: none;  /* IE and Edge */ scrollbar-width: none;  /* Firefox */ } body > .components::-webkit-scrollbar { display: none; /* Chrome, Safari, Opera */ } body > .components > *{ flex: none; cursor: pointer; } body > .components > work-block{display: flex; flex-direction: column; gap: 20px} body > .components > work-class{ width: 100%; padding: 5px 0; color: #585858; text-align: right; font-size: 1.4rem; border-bottom: 1px solid #585858; }
+
+        /* Override Styles */
+
+
+
+    </style>
+
+    <!-- StyleSheets HERE ! -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./read-only/workspace.css">
+    <link rel="stylesheet" href="./workclass.css">
+    <link rel="stylesheet" href="./components.css">
+    
+</head>
+<body>
+    <div class="info"> <p class="info-core">Core : <b>[none]</b></p> <p class="info-int">Interactions : <b>[none]</b></p> <p class="info-desc">Description : <b>none</b></p> </div>
+    <!-- Components HERE ! -->
+    <main class="components">
+
+         <small-dom>
+
+            # boutons
+            work-class "buttons and markers"
+
+            button [data-core-button]         "bouton variant 0"
+            button [data-core-button](border) "bouton variant 1"
+            p [data-core-marker]       "@"
+            p [data-core-marker](code) "&lt;code&gt;"
+
+            # code, codebox, etc...
+            work-class "code"
+
+            aside.doc-code-box [style](max-width: 600px)
+
+                header 
+
+                    p [data-core-marker] "&lt; &gt;"
+                    h5 "this is my box title"
+                    span.material-icons [data-core-marker] "content_copy"
+
+                div.doc-box
+
+                    div.doc-table
+                        div.doc-table-col1
+                            p "1"
+                            p "20"
+                            p "3"
+                            p "4"
+                        div.doc-table-col2
+                            div.doc-table-col-block
+                                p " line two"
+                                p " line two"
+                                p "     line 3"
+                                p "     line 3"
+
+                    div.doc-code-test
+
+            work-block
+                h1 "This is h1"
+                h2 "This is h2"
+                h3 "This is h3"
+                h4 "This is h4"
+                        
+            
+
+
+         </small-dom>
+
+    </main>
+
+    <script src="./read-only/workspace.js"></script>
+    <script src="./smallDom.js"></script>
+    <script> smallDomReplace(); var components = document.querySelectorAll('body > .components > *'); var infos = document.querySelectorAll('body > .info p b'); for(var item of components){ item.addEventListener('click', updateInfo); } function updateInfo(e){ var d = e.currentTarget.dataset; var coreNames = []; for(var key in d){ if(key.startsWith('core')){ coreNames.push(key.substring(4).toLowerCase()); } } infos[0].textContent = '[' + coreNames.join(', ') + ']'; infos[1].textContent = '[' + (d.int || 'none') + ']'; infos[2].textContent = d.desc; } </script>
+</body>
+</html>

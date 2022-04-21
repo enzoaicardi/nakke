@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nakke, the documentation std</title>
+
+    <link rel="stylesheet" href="./assets/read-only/workspace.css">
+    <link rel="stylesheet" href="./assets/workclass.css">
+    <link rel="stylesheet" href="./assets/components.css">
+    <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body class="ns" style="color:transparent;">
+<small-dom>
+
+        # Global header
+        header.doc-header.mobile.mobile-flex
+            div.doc-header-left
+                img!.doc-site-logo [src](./logo.svg)
+                p.doc-site-title "Nakke."
+                
+            div.doc-header-right.doc-color-mode
+                span.material-icons.v "light_mode"
+                span.material-icons "dark_mode"
+
+        # Global main content
+        main.doc-page
+
+            # Sidebar navigation
+            section.doc-sidebar
+
+                header.desktop
+                    img!.doc-site-logo [src](./logo.svg)
+                    p.doc-site-title "Nakke."
+
+                nav.content.ns
+                    
+                    
+            # Main content
+            section.doc-content
+
+                header
+                    div.doc-header-left
+                        span.material-icons [data-core-marker] "search"
+                        input [type](text) [placeholder](search in files.)
+
+                    div.doc-header-right
+                        span.material-icons.mobile "menu"
+
+                div.content.ns
+
+
+            # Summary navigation
+            section.doc-summary
+
+                header.doc-color-mode.desktop
+                    span.material-icons.v "light_mode"
+                    span.material-icons "dark_mode"
+
+                nav.content.ns
+                    
+                    div[data-core-catname]
+                        p [data-core-marker] "#"
+                        p "On this page"
+
+                    div.summary
+                    
+
+        # Global footer
+        footer.doc-footer
+        
+
+</small-dom>
+
+<script src="./assets/read-only/workspace.js"></script>
+<script src="./assets/smallDom.js"></script>
+<script src="./assets/crimson.js"></script>
+<script>
+    smallDomReplace();
+    document.body.removeAttribute('style');
+
+    var footer = '<footer><a href="">Back to site.</a><p>Back to top.</p></footer>';
+</script>
+
+<script src="./assets/scoreIt.js"></script>
+<script src="./assets/nakke.js"></script>
+
+</body>
+</html>

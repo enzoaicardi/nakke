@@ -1,0 +1,166 @@
+/* 
+*   WORKSPACE.CSS
+*   It's a file that contains a set of selectors to interact with your components and variables to set your defaults in the right way.
+*   You should overwrite this file -> fixed values & -> variable values (--xxxx-base) !
+*/
+
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
+
+body{
+
+    /* 
+    *  Fixed values
+    */
+
+    /* default colors (p, h, placeholder, ...) */
+    --hue: 0;
+    --saturation: 0%;
+    --opacity: 1;
+
+    /*
+    *  Color modes
+    *  Light: s = 0% | m = -1
+    *  Dark: s = between 100% and 200% | m = 1
+    */
+    --s: 0%;
+    --m: -1;
+
+    --color-00: hsla(var(--hue), var(--saturation), calc(var(--s) - 0% * var(--m)),   var(--opacity));
+    --color-01: hsla(var(--hue), var(--saturation), calc(var(--s) - 10% * var(--m)),  var(--opacity));
+    --color-02: hsla(var(--hue), var(--saturation), calc(var(--s) - 20% * var(--m)),  var(--opacity));
+    --color-03: hsla(var(--hue), var(--saturation), calc(var(--s) - 30% * var(--m)),  var(--opacity));
+    --color-05: hsla(var(--hue), var(--saturation), calc(var(--s) - 50% * var(--m)),  var(--opacity));
+    --color-07: hsla(var(--hue), var(--saturation), calc(var(--s) - 70% * var(--m)),  var(--opacity));
+    --color-08: hsla(var(--hue), var(--saturation), calc(var(--s) - 80% * var(--m)),  var(--opacity));
+    --color-09: hsla(var(--hue), var(--saturation), calc(var(--s) - 90% * var(--m)),  var(--opacity));
+    --color-1:  hsla(var(--hue), var(--saturation), calc(var(--s) - 100% * var(--m)), var(--opacity));
+    
+    /* 
+    *  colors (h, background, border, ...)
+    *  prefer hsla() or rgba() format with :
+    *  - var(--hue) or custom hue
+    *  - custom saturation
+    *  - calc(var(--s) - <brightness value%> * var(--m))
+    *  - var(--opacity)
+    *  you can change --opacity later in elements instead of opacity property
+    */
+    --color-60p: hsl(var(--hue), 90%, calc(var(--s) - 60% * var(--m)));
+    --color-30p: hsl(var(--hue), 90%, calc(var(--s) - 80% * var(--m)));
+    --color-10p: hsl(var(--hue), 90%, calc(var(--s) - 90% * var(--m)));
+
+    --color-true:  green;
+    --color-false: red;
+    --color-null:  blue;
+
+    /* change this value inside an element to affect (a:active:visited) color  */
+    --color-link: inherit;
+
+    /* font (p, h, ...) */
+    --font-default:  Arial, Helvetica, sans-serif;
+    --font-mono:     monospace;
+    
+    --font-main:     var(--font-default);
+    --font-title:    var(--font-default);
+
+    --font-thin:     300;
+    --font-regular:  400;
+    --font-medium:   500;
+    --font-semibold: 600;
+    --font-bold:     700;
+
+    /* minmax sizes */
+    --minmax-small:  100px;
+    --minmax-normal: 300px;
+    --minmax-medium: 400px;
+    --minmax-large:  700px;
+
+    /* 
+    *  Variable values
+    */
+
+    /* base variable for all dimensions */
+    --base: 1;
+
+    /* [variable] text font size */
+    --text-base:     calc(var(--base) * 1rem);
+    --text-small:    calc(var(--text-base) * 1.4);
+    --text-normal:   calc(var(--text-base) * 1.6);
+    --text-medium:   calc(var(--text-base) * 1.8);
+    
+    /* [variable] title font size */
+    --title-base:    calc(var(--base) * 1rem);
+    --title-h1:      calc(var(--title-base) * 2.8);
+    --title-h2:      calc(var(--title-base) * 2.8);
+    --title-h3:      calc(var(--title-base) * 2.4);
+    --title-h4:      calc(var(--title-base) * 2);
+
+    /* [variable] radius (border-radius, ...) */
+    --radius-base:   calc(var(--base) * 1px);
+    --radius-small:  calc(var(--radius-base) * 5);
+    --radius-normal: calc(var(--radius-base) * 10);
+    --radius-medium: calc(var(--radius-base) * 15);
+    --radius-large:  calc(var(--radius-base) * 20);
+    --radius-round:  50%;
+
+    /* [variable] heights and width */
+    --size-base:     calc(var(--base) * 1px);
+    --size-small:    calc(var(--size-base) * 30);
+    --size-normal:   calc(var(--size-base) * 50);
+    --size-medium:   calc(var(--size-base) * 80);
+    --size-large:    calc(var(--size-base) * 120);
+
+    /* [variable] gaps (padding, margin, gap, ...) */
+    --gap-base:      calc(var(--base) * 1px);
+    --gap-small:     calc(var(--gap-base) * 5);
+    --gap-normal:    calc(var(--gap-base) * 10);
+    --gap-medium:    calc(var(--gap-base) * 20);
+    --gap-large:     calc(var(--gap-base) * 30);
+    --gap-mega:     calc(var(--gap-base) * 40);
+
+    font-family: var(--font-default);
+
+}
+
+body.dark_mode{
+    --s: 115%;
+    --m: 1;
+}
+
+body.black_mode{
+    --s: 100%;
+    --m: 1;
+}
+
+body.grey_mode{
+    --s: 130%;
+    --m: 1;
+}
+
+/* titles & text */
+
+*{
+    /* this can affect materials-icons */
+    line-height: 1.4;
+}
+
+.material-icons,
+.material-icons-outlined,
+.material-icons-round,
+.material-icons-sharp,
+.material-icons-two-one{
+    line-height: normal;
+}
+
+h1, h2, h3, h4{
+    font-family: var(--font-main);
+}
+
+/* 
+*   components
+*
+*   > exemples :
+*   [data-core-button]{ ... }
+*   [data-core-button="2"]{ ... } variation
+*   [data-core-button="3"]{ ... } variation
+*/
+

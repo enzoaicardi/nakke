@@ -1,0 +1,198 @@
+/* 
+*   WORKSPACE.CSS
+*   It is a file that contains a set of instructions to avoid css quirks and allow a faster and more reliable project start.
+*   No edit needed !
+*/
+
+html{
+    font-size: 62.5%;
+    font-weight: normal;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    overflow-wrap: break-word;
+    --color-link: inherit;
+}
+
+body{
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+*,
+*::before,
+*::after{
+    outline: none;
+
+    min-width: 0;
+    min-height: 0;
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+
+    font-weight: inherit;
+    font-size: inherit;
+    text-decoration: none;
+}
+
+ol,
+ul,
+li{
+    list-style: none;
+}
+
+img{
+    border-style: none;
+}
+
+table{
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+a,
+a:visited,
+a:active{
+    /* 
+    *   default value is "inherit"
+    *   change this value inside an element to affect (a:active:visited) color
+    */
+    color: var(--color-link);
+}
+
+pre,
+code,
+kbd,
+samp {
+    font-family: monospace;
+    font-size: 1em;
+}
+
+pre{
+    white-space: pre-wrap;
+    line-height: normal;
+    overflow: auto;
+}
+
+template{
+    display: none;
+}
+
+.none{
+    display: none !important;
+}
+
+.hidden{
+    visibility: hidden !important;
+}
+
+/* input style corrections */
+
+button,
+input,
+select,
+textarea {
+    border: none;
+    background-color: transparent;
+
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    text-transform: none;
+    vertical-align: middle;
+}
+
+[type="search"] {
+    -webkit-appearance: textfield;
+}
+
+::-webkit-input-placeholder {
+    color: inherit;
+    opacity: 0.54;
+}
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+    height: auto;
+}
+
+::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+    -webkit-appearance: button;
+    font: inherit;
+}
+
+/* no-scroll-bar class */
+
+.ns::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.ns {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* 
+
+    # Flex-grid
+
+    <container class="flex-grid row">
+
+        <element></element>
+        <element></element>
+        <element></element>
+        <element></element>
+
+        <element class="empty"></element> -> n = (max element per row/col) - 1
+        <element class="empty"></element>
+
+    </container>
+
+    # Grid
+
+    container{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax((element-width)px, 1fr));
+        grid-auto-rows: (height)px;
+    }
+
+*/
+
+.flex-grid{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.flex-grid.col{
+    flex-direction: column;
+}
+
+    .flex-grid .empty{
+        visibility: hidden !important;
+        padding: 0 !important;
+        border: none !important;
+    }
+
+    .flex-grid.row .empty{
+        height: 0 !important;
+        min-height: 0 !important;
+        
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    
+    .flex-grid.col .empty{
+        width: 0 !important;
+        min-width: 0 !important;
+
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
