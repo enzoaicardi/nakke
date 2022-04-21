@@ -1,18 +1,61 @@
 <!DOCTYPE html>
-<html>
+
+<!-- 
+
+    The only things you have to do here is to change the <title>, the <html lang="{mylang}">
+    Modify the main colors, and maybe the <footer> <a> href and <p> textContent
+
+    You can use Ctrl (or CMD) + F "change" to find fields to modify
+
+ -->
+
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Change the title -->
     <title>Nakke, the documentation std</title>
 
+    <link rel="icon" type="image/png" href="./favicon.png">
     <link rel="stylesheet" href="./assets/read-only/workspace.css">
     <link rel="stylesheet" href="./assets/workclass.css">
     <link rel="stylesheet" href="./assets/components.css">
     <link rel="stylesheet" href="./assets/styles.css">
+
+    <!-- Change colors here -->
+    <style>
+        body{
+            --change-colors-here: 0;
+            /* 
+            ** Main colors var - according to UI/UX standards
+
+                --color-60p (this is the 60% main color)
+                --color-30p (this is the 30% main color)
+                --color-10p (this is the 10% main color)
+
+                Color format
+
+                    If you want your main colors adaptatives :
+                        ** Replace {...} by your custom values **
+                        --color-60p: hsl({myhue}, {mysaturation}, calc(var(--s) - {mybrightness} * var(--m)));
+
+                    If you don't care about it you can use hex, rgb, ...
+            
+            ** Grey colors
+
+                --hue (the hue position in css hsl())
+                --saturation (the saturation percentage in css hsl())
+            */
+        }
+    </style>
+
 </head>
 <body class="ns" style="color:transparent;">
-<small-dom>
+
+    <!-- Don't touch anything here -->
+    <small-dom>
 
         # Global header
         header.doc-header.mobile.mobile-flex
@@ -71,7 +114,7 @@
         footer.doc-footer
         
 
-</small-dom>
+    </small-dom>
 
 <script src="./assets/read-only/workspace.js"></script>
 <script src="./assets/smallDom.js"></script>
@@ -80,6 +123,7 @@
     smallDomReplace();
     document.body.removeAttribute('style');
 
+    // You can change the footer text content and link but do not touch the structure
     var footer = '<footer><a href="">Back to site.</a><p>Back to top.</p></footer>';
 </script>
 

@@ -1,40 +1,16 @@
-# You have to learn small-dom to understand how to read docs pages
 
-h1 "Index Page"
+h1 "Nakke c'est quoi ?"
 
-p {this is an index type page with some texts}
+p {Nakke est un template de documentation créé par Enzo Aicardi, qui permet la création rapide d'une documentation
+simple a rédiger, facile d'usage et adaptative}
 
-h2 "This is a title of section"
+p {L'objectif est de se concentrer sur l'essentiel, c'est à dire la rédaction de la documentation}
 
-p {this is some text with a link to } +a[href](https://aicardi.pro) "aicardi.pro" -{ inside}
+h2 "Installation"
 
-p {we can present a list bellow}
+p{Installer Nakke est relativement simple, il vous suffit de copier l'ensemble des fichiers du dépot }
+    a [href](https://github.com/enzoaicardi/nakke) {GitHub} -{ et de les ajouter dans le dossier "documentation"
+de votre site web.}
 
-ul
-    li "this is a list item"
-    li "this is a list item"
-    li "this is a list item"
-
-
-h3 "Here a little bit of code example"
-
-p {here we have some code inside text : } +q "<code></code>" -{ it works !}
-
-code [title](Box code title) [spaces](8)
-
-        {<body>
-                <header>
-                    <h1> Title </h1>
-
-                </header>
-        </body>}
-
-h4 "The smallest title possible"
-
-p {we have an image bellow, you can use height and width attributes (without units) on.}
-
-img! [src](./images/lotus.webp) [width](300) [data-align](left)
-
-p {As you can see, you will have a button bellow that
-indicate the previous and next page.}
+p{La seule page qui effectue tout le rendu de la documentation est la page "index.html"}
 

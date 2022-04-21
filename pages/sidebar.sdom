@@ -1,8 +1,9 @@
 
-section [title](Title of the section) [char](#)
+section [title](Commencer) [char](?)
 
-    # without page attribute <a> href point to {name}.sdom
-    a "index" 
-        q {This welcome is a description to help you learn the nakke library usage}
+    a "Installation" [page](index)
+
+    a "Configuration" [page](config)
+
+    a "Redaction" [page](write)
         
-    a "welcome" [page](index) # don't put .sdom at the end

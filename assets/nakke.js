@@ -72,7 +72,7 @@ globalListener('click', '.cat-content a, .doc-content .doc-content-nav a', funct
 
     burgerDo('close');
 
-}, {}, qs('.doc-sidebar .content'));
+}, {});
 
 // SUMMARY ANCHOR CLICK
 var easingCubic = function(x){ return 1 - Math.pow(1 - x, 3); }
@@ -303,7 +303,7 @@ function nakkeParseContent(){
 
     nav += '<a data-core-button '
         +(previousPage.slug ? '' : 'class="hidden"')
-        +(previousPage.slug ? '' : 'href="?page='+previousPage.slug+'"')
+        +(previousPage.slug ? 'href="?page='+previousPage.slug+'"' : '')
         +'data-page="'+previousPage.slug+'"'
         +'>'
         +previousPage.name
@@ -311,7 +311,7 @@ function nakkeParseContent(){
 
     nav += '<a data-core-button="border" '
         +(nextPage.slug ? '' : 'class="hidden"')
-        +(nextPage.slug ? '' : 'href="?page='+nextPage.slug+'"')
+        +(nextPage.slug ? 'href="?page='+nextPage.slug+'"' : '')
         +'data-page="'+nextPage.slug+'"'
         +'>'
         +nextPage.name
@@ -471,7 +471,6 @@ function searchScoreUpdate(str){
  */
 function getCurrentPage(){
     var params = window.location.search;
-    console.log(params);
     if(!params) return 'index';
 
     var urlParams = new URLSearchParams(params);
