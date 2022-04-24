@@ -58,11 +58,21 @@ h5{
     background-color: var(--color-60p);
 }
 
+@keyframes load {
+    0%{
+        width: 0vw;
+    }
+    100%{
+        width: 20vw;
+    }
+}
+
 .doc-loader[data-load="0"]{
     width: 0vw;
     height: 3px;
     opacity: 1;
     transition: width 0ms, opacity 0ms;
+    animation: load 2000ms ease forwards;
 }
 
 .doc-loader[data-load="50"]{
