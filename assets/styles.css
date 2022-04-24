@@ -372,6 +372,8 @@ main.doc-page{
             /* width: max-content; */
             max-width: calc(100% - var(--gap-mega) * 2);
             max-height: calc(var(--size-large) * 5);
+            width: auto;
+            height: auto;
 
             border-radius: var(--radius-small);
         }
@@ -408,9 +410,9 @@ main.doc-page{
             cursor: pointer;
         }
 
-    .doc-content .content > [data-align="left"]{ align-self: flex-start; }
-    .doc-content .content > [data-align="center"]{ align-self: center; }
-    .doc-content .content > [data-align="right"]{ align-self: flex-end; }
+    .doc-content .content > [data-flex="left"]{ align-self: flex-start; }
+    .doc-content .content > [data-flex="center"]{ align-self: center; }
+    .doc-content .content > [data-flex="right"]{ align-self: flex-end; }
 
     /* search */
 

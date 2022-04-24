@@ -234,8 +234,6 @@ function smallDomTokeniser(code){
         
             while(code[i] !== ')'){
                 if(!code[i]) err(errMissingClose(key), getTrace());
-                // if the current char is an escape char
-                // we increment i to get code[i] the next char (only if exist) and outpass the backslash
                 if(code[i] === '\\' && code[i+1]) i++;
                 input += code[i];
                 i++;
@@ -299,7 +297,6 @@ function smallDomTokeniser(code){
         function tokenPositionUpdate(){
             i += inc;
             _endChar = i;
-            // CHANGE THIS THIS THIS THIS
             _startCol = _startChar - _startLineFirstChar;
             _endCol = _endChar - _endLineFirstChar;
         }

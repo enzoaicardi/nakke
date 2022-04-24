@@ -35,7 +35,7 @@ h4 "The smallest title possible"
 
 p {we have an image bellow, you can use height and width attributes (without units) on.}
 
-img! [src](./images/lotus.webp) [width](300) [align](center)
+img! [src](./images/lotus.webp) [width](300) [flex](center)
 
 p {As you can see, you will have a button bellow that
 indicate the previous and next page.}

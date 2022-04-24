@@ -37,7 +37,7 @@ var nextPage = {name: '', slug: ''};
 
 var searchContent = [];
 
-nakkeImport('sidebar', qs('.doc-sidebar .content'), true);
+nakkeImport('sidebar', qs('.doc-sidebar .content'), true, true);
 nakkeImport(getCurrentPage());
 
 // MOBILE BURGER CLICK
@@ -204,6 +204,7 @@ window.addEventListener('popstate', function(e){
 
 function nakkeImport(name, container, sidebar, state){
 
+    if(!sidebar && name === 'sidebar') name = '404';
     if(!sidebar) currentPage = name;
 
     var url = './pages/' + name + '.sdom';
@@ -285,17 +286,8 @@ function nakkeParseContent(){
     var imgs = qsa('img', docContent);
 
     toDataAttr(links, 'page');
-    toDataAttr(imgs, 'align');
-
-    function toDataAttr(elems, attr){
-        for(var el of elems){
-            var data = el.getAttribute(attr);
-            if(data) {
-                el.setAttribute('data-'+attr, data);
-                el.removeAttribute(attr);
-            }
-        }
-    }
+    toDataAttr(imgs, 'flex');
+    toStyleAttr(imgs, ['height', 'width'], 'px');
 
     for(var code of codeInline){
         code.outerHTML = '<span translate="no" data-core-marker="code">'+escapeHTML(code.textContent)+'</span>';
@@ -356,6 +348,27 @@ function nakkeParseContent(){
     // generate summary at the end because elements could be
     // resized or tags can change (this can effect offsetTop)
     nakkeGenerateSummary();
+
+    function toDataAttr(elems, attr){
+        for(var el of elems){
+            var data = el.getAttribute(attr);
+            if(data) {
+                el.setAttribute('data-'+attr, data);
+                el.removeAttribute(attr);
+            }
+        }
+    }
+
+    function toStyleAttr(elems, array, suffix){
+        for(var el of elems){
+            var style = '';
+            for(prop of array){
+                var val = el.getAttribute(prop) || false;
+                if(val) style += prop + ':' + val + suffix + ';';
+            }
+            el.setAttribute('style', style);
+        }
+    }
 
 }
 
