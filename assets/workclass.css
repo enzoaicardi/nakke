@@ -30,6 +30,7 @@ body{
     --color-02: hsla(var(--hue), var(--saturation), calc(var(--s) - 20% * var(--m)),  var(--opacity));
     --color-03: hsla(var(--hue), var(--saturation), calc(var(--s) - 30% * var(--m)),  var(--opacity));
     --color-05: hsla(var(--hue), var(--saturation), calc(var(--s) - 50% * var(--m)),  var(--opacity));
+    --color-06: hsla(var(--hue), var(--saturation), calc(var(--s) - 60% * var(--m)),  var(--opacity));
     --color-07: hsla(var(--hue), var(--saturation), calc(var(--s) - 70% * var(--m)),  var(--opacity));
     --color-08: hsla(var(--hue), var(--saturation), calc(var(--s) - 80% * var(--m)),  var(--opacity));
     --color-09: hsla(var(--hue), var(--saturation), calc(var(--s) - 90% * var(--m)),  var(--opacity));
@@ -45,8 +46,8 @@ body{
     *  you can change --opacity later in elements instead of opacity property
     */
     --color-60p: hsl(var(--hue), 90%, calc(var(--s) - 60% * var(--m)));
-    --color-30p: hsl(var(--hue), 90%, calc(var(--s) - 80% * var(--m)));
-    --color-10p: hsl(var(--hue), 90%, calc(var(--s) - 90% * var(--m)));
+    --color-30p: hsl(var(--hue), 90%, calc(var(--s) - 70% * var(--m)));
+    --color-10p: hsl(var(--hue), 90%, calc(var(--s) - 80% * var(--m)));
 
     --color-true:  green;
     --color-false: red;
@@ -140,7 +141,7 @@ body.grey_mode{
 
 *{
     /* this can affect materials-icons */
-    line-height: 1.4;
+    line-height: 1.8;
 }
 
 .material-icons,

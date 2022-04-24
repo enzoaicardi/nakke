@@ -1,0 +1,48 @@
+h1 "La navigation"
+
+p {La navigation sur la documentation se fait via la sidebar, correspondant au fichier}
+    q "sidebar.sdom"
+
+p {La sidebar est organisée comme suit :}
+
+ul
+    li "Catégorie 1"
+    ol
+        li "page n°1"
+        li "page n°2"
+        li "page n°x"
+
+    li "Catégorie 2"
+    ol
+        li "page n°1"
+        li "page n°2"
+        li "page n°x"
+
+    li "Catégorie X"
+
+h2 "Créer la sidebar"
+
+p {Pour créer votre sidebar, créez le fichier} +q "sidebar.sdom" -{à la racine du dossier}
+    q "pages" -{ou copier le fichier du même nom situé dans} +q "pages/default-files"
+
+h3 "Structure de la sidebar"
+
+code [title](sidebar.sdom) [language](sdom)
+{# title représente le titre de la section
+# char représente le caractère affiché devant le titre
+section [title](Title of the section) [char](#)
+
+    # Chaque page est représentée par un <a></a> tag
+    # si aucun attribut page n'est indiqué, alors l'attribut page
+    # prendra automatiquement la valeur du contenu textuel
+    a "index" 
+    
+    # Il est cependant conseillé de renseigné un attribut page
+    # cet attribut doit représenter le chemin jusqu'à la page sans le .sdom
+    a "welcome" [page](default-files/index)
+
+    # Il est aussi possible de renseigner une courte description
+    # qui permettra un référencement dans la barre de recherche
+    a "default" [page](default-files/index)
+        # Description (facultatif)
+        q \{pages par defaut de la documentation nakke.\}}

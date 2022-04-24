@@ -44,12 +44,13 @@ body{
 
     body .doc-summary,
     body .doc-sidebar{
+        flex: none;
         --top: var(--size-medium);
         position: absolute;
         top: var(--top);
         z-index: 10;
 
-        height: calc(100vh - var(--top));
+        height: calc(100% - var(--top));
         width: var(--width);
         min-width: var(--width);
         max-width: var(--width);
@@ -289,6 +290,13 @@ main.doc-page{
             gap: var(--gap-normal);
         }
 
+            .doc-content .content i{
+                font-style: italic;
+            }
+            .doc-content .content b{
+                font-weight: var(--font-semibold);
+            }
+
             .doc-content .content > *{
                 flex: none;
                 margin-left: var(--gap-mega);
@@ -300,30 +308,61 @@ main.doc-page{
                     margin-bottom: var(--gap-normal);
                 }
                 
-                .doc-content h1 {margin-bottom: var(--gap-normal);}
+                .doc-content h1,
                 .doc-content h2,
                 .doc-content h3,
                 .doc-content h4
                 {
                     margin-top: var(--gap-large);
-                    margin-bottom: var(--gap-normal);
+                    padding-bottom: var(--gap-normal);
                 }
+                .doc-content h1 {margin-top: 0;}
 
                 .doc-content a{
+                    cursor: pointer;
                     --color-link: var(--color-60p);
                 }
 
+        .doc-content ul,
+        .doc-content ol{
+            display: flex;
+            flex-direction: column;
+            gap: var(--gap-small);
+            margin-top: var(--gap-normal);
+            margin-bottom: var(--gap-normal);
+        }   
+
         .doc-content ul li,
         .doc-content ol li{
-            list-style-position: inside;
-            list-style-type: disc;
+            color: var(--color-05);
+            padding-left: var(--gap-normal);
+            list-style: none;
+        }
+
+        .doc-content ol > li::before{
+            content: "\203A";
+        }
+        .doc-content ul > li::before{
+            content: "\2022";
+        }
+
+        .doc-content ul li::before,
+        .doc-content ol li::before{
+            display: block;
+            float: left;
+            height: 100%;
+            margin-right: var(--gap-medium);
+
+            color: var(--color-03);
+            font-size: var(--text-normal);
+            font-weight: var(--font-semibold);
         }
 
         .doc-content ul ul,
         .doc-content ul ol,
         .doc-content ol ul,
         .doc-content ol ol{
-            padding-left: var(--gap-medium);
+            padding-left: var(--gap-large);
         }
 
         .doc-content .content img{

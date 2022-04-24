@@ -9,8 +9,30 @@ p {L'objectif est de se concentrer sur l'essentiel, c'est à dire la rédaction 
 h2 "Installation"
 
 p{Installer Nakke est relativement simple, il vous suffit de copier l'ensemble des fichiers du dépot }
-    a [href](https://github.com/enzoaicardi/nakke) {GitHub} -{ et de les ajouter dans le dossier "documentation"
-de votre site web.}
+    a [href](https://github.com/enzoaicardi/nakke) {GitHub} -{ et de les ajouter dans votre dossier} +q{documentation}
+{de votre site web.}
 
-p{La seule page qui effectue tout le rendu de la documentation est la page "index.html"}
+p{La seule page qui effectue tout le rendu de la documentation est la page} +q {index.html} 
+
+code [title](Exemple de structure) [language](generic)
+{[] assets
+index.html (website index)
+
+[] documentation_folder_name (nakke here)
+    [] assets
+    index.html (nakke index)
+    ...}
+
+p{Vous pouvez ensuite vérifier que tout fonctionne en vous rendant à l'adresse de votre nouvelle documentation, 
+si vous voyez cette même page s'afficher c'est que l'installation s'est passée correctement.}
+
+h3 "Tester en local"
+
+p{Afin d'éviter les erreur de cross-origin que vous rencontrerez si vous testez la documentation
+en local sans serveur local, nous vous conseillons d'utiliser l'extension live-server sur vscode.}
+
+h3 "Mettre a jour"
+
+p{Pour une raison quelconque, si vous souhaitez mettre à jour la documentation Nakke, il suffit
+de télécharger la nouvelle version de} +q "nakke.js"
 

@@ -1,1 +1,55 @@
+
 h1 "Configuration"
+
+p{Maintenant que la documentation est installée dans votre dossier il est possible de configurer
+certains éléments.}
+
+p{Comme l'objectif est de faire simple et rapide nous allons passer en revue les quelques points de personnalisation
+possibles.}
+
+h3 "Les couleurs et le titre"
+
+p {Tout d'abord rendez-vous dans le fichier} +q "index.html" -{vous y trouverez des
+instructions concernant les éléments à modifier.}
+
+h4 "Titre et pied de page"
+
+p{Pour modifier le titre du site il suffit simplement d'éditer la balise} +q "<title>"
+
+p{Pour modifier le pied de page du contenu principal, rendez-vous à la fin du fichier, vous y
+trouverez alors la variable} +q "var footer = ..." -{que vous pouvez aussi modifier en suivant
+les instructions commentées.}
+
+p{Pensez aussi à modifier l'attribut}
+    q "lang" -{de la balise} +q "<html>" -{de la documentation}
+
+h4 "Couleurs"
+
+p{Les couleurs sont représentées par des variables, vous avez la possibilité de changer les trois
+couleurs principales nommées} 
+    q "--color-60p"
+    q "--color-30p"
+    q "--color-10p"
+
+p{Afin de les modifier, rendez-vous simplement dans la balise} +q "<style>" -{dans l'en-tête
+et suivez les instructions.}
+
+code [title](index.html) [language](css) [spaces](4)
+{    body\{
+        --color-60p: hsl(0, 100%, calc(var(--s) - 50% * var(--m)));
+        --color-30p: hsl(0, 80%, 50%);
+        --color-30p: hsl(0, 80%, 20%);
+    \}}
+
+p{Pour modifier la teinte et la saturation des couleurs intermédiaires (habituellement les gris)
+il vous faut éditer les variable} +q "--hue" -{et} +q "--saturation"
+
+h3 "Le logo et l'icone du site"
+
+p{Pour modifier le logo du site, rendez-vous à la racine de la documentation et changez}
+    q "logo.svg"
+{par votre logo.}
+
+p{Il en va de même pour l'icone de votre site, il vous suffit de remplacer}
+    q "favicon.png"
+{par votre icone.}

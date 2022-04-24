@@ -25,6 +25,10 @@ globalListener('click', '.doc-color-mode span', function(e){
 // VARS
 
 var docContent = qs('.doc-content .content');
+var pageLoader = qs('body > .doc-loader');
+function loadStatus(progress, hidden){
+    if(!hidden) pageLoader.setAttribute('data-load', progress);
+}
 
 // get the current page only on first load
 var currentPage = 'index';
@@ -63,7 +67,7 @@ function burgerDo(state){
 
 // SIDEBAR LINK CLICK
 
-globalListener('click', '.cat-content a, .doc-content .doc-content-nav a', function(e){
+globalListener('click', '.cat-content a, .doc-content .doc-content-nav a, .doc-content a[data-page]', function(e){
 
     e.preventDefault();
     var pageName = e.target.getAttribute('data-page') || '404';
@@ -87,8 +91,10 @@ globalListener('click', 'a', function(e){
     e.preventDefault();
     var anchor = e.target.getAttribute('data-anchor');
     if(!anchor) return;
+    var el = qs('#'+anchor, docContent);
+    var h = qs('.doc-content > header');
 
-    var distance = qs('#'+anchor, docContent).offsetTop - 100;
+    var distance = el.offsetTop - (h.offsetHeight+20);
     var scrolled = docContent.scrollTop;
     
     scrollAnimation.stop();
@@ -145,13 +151,14 @@ docContent.addEventListener('scroll', function(){
 function currentContentAnchor(){
 
     var ca = qsa('h1[id], h2[id], h3[id], h4[id]', docContent);
+    var scrolled = docContent.scrollTop;
+    var h = qs('.doc-content > header');
 
     for(var i=ca.length-1; i>=0; i--){
 
         var distance = ca[i].offsetTop;
-        var scrolled = docContent.scrollTop;
 
-        if(scrolled > distance - 120){
+        if(scrolled > distance - (h.offsetHeight + 40)){
             return ca[i].id;
         }
 
@@ -202,10 +209,13 @@ function nakkeImport(name, container, sidebar, state){
     var url = './pages/' + name + '.sdom';
     container = container || docContent;
 
+    loadStatus('0', sidebar);
+
     fetch(url)
     .then(function(response) {
         if(response.ok){
             if(!state) history.pushState({page: name}, '', '?page='+name);
+            loadStatus('50', sidebar);
             return response.text();
         }else{
             nakkeImport('404');
@@ -216,8 +226,10 @@ function nakkeImport(name, container, sidebar, state){
         if(!code) return;
         container.innerHTML = smallDomTranspile(code).replace(/<img/g, '<img loading="lazy"');
         if(sidebar) {nakkeParseSideBar(); return;}
+        docContent.scrollTop = 0;
         nakkeHighlightSideBar();
         nakkeParseContent();
+        loadStatus('100');
     });
 
 }
@@ -231,8 +243,10 @@ function nakkeParseSideBar(){
     var HTML = '';
 
     for(var section of sections){
+        var fc = section.getAttribute('char');
+
         HTML += '<div class="cat"><div class="cat-header" data-core-catname>';
-            HTML += '<p data-core-marker>' + (section.getAttribute('char')[0] || '/') + '</p>';
+            HTML += '<p data-core-marker translate="no">' + (fc ? fc[0] : '#') + '</p>';
             HTML += '<p>' + (section.getAttribute('title') || 'untitled') + '</p>';
         HTML += '</div><div class="cat-content">';
 
@@ -267,9 +281,24 @@ function nakkeParseSideBar(){
 function nakkeParseContent(){
     var codeInline = qsa('q', docContent);
     var codeBlock = qsa('code', docContent);
+    var links = qsa('a', docContent);
+    var imgs = qsa('img', docContent);
+
+    toDataAttr(links, 'page');
+    toDataAttr(imgs, 'align');
+
+    function toDataAttr(elems, attr){
+        for(var el of elems){
+            var data = el.getAttribute(attr);
+            if(data) {
+                el.setAttribute('data-'+attr, data);
+                el.removeAttribute(attr);
+            }
+        }
+    }
 
     for(var code of codeInline){
-        code.outerHTML = '<span data-core-marker="code">'+escapeHTML(code.textContent)+'</span>';
+        code.outerHTML = '<span translate="no" data-core-marker="code">'+escapeHTML(code.textContent)+'</span>';
     }
 
     for(var code of codeBlock){
@@ -279,21 +308,24 @@ function nakkeParseContent(){
         var col1 = '';
         var col2 = '';
 
+        var lang = code.getAttribute('language');
+
         for(var i=0; i<pre.length; i++){
-            if(indent) pre[i] = pre[i].replace(indent, '');
+            var regex = new RegExp("^"+indent)
+            if(indent) pre[i] = pre[i].replace(regex, '');
             col1 += '<p>'+(i+1)+'</p>';
-            col2 += '<p>'+escapeHTML(pre[i])+'</p>';
+            col2 += '<p>'+nakkeHighlightCode(escapeHTML(pre[i]), lang)+'</p>';
         }
 
         var HTML = '<aside class="doc-code-box"><header>';
-            HTML += '<p data-core-marker>&lt; &gt;</p>';
+            HTML += '<p data-core-marker translate="no">'+ (lang ? ('.'+lang) : "&lt; &gt;") +'</p>';
             HTML += '<h5>'+(code.getAttribute('title') || 'no title')+'</h5>';
-            HTML += '<span class="material-icons" data-content="'+escapeHTML(pre.join('\n'))+'" data-core-marker>content_copy</span></header>';
+            HTML += '<span class="material-icons" data-content="'+escapeHTML(pre.join('\n'))+'" data-core-marker translate="no">content_copy</span></header>';
 
             HTML += '<div class="doc-box"><div class="doc-table"><div class="doc-table-col1">';
                 HTML += col1;
-            HTML += '</div><div class="doc-table-col2"><div class="doc-table-col-block">';
-                HTML += col2;  
+            HTML += '</div><div class="doc-table-col2"><div translate="no" class="doc-table-col-block"' + (lang ? (' data-language="'+lang+'"') : '') + '>';
+                HTML += col2;
             HTML += '</div></div></div></div></aside>';
 
         code.outerHTML = HTML;
@@ -384,7 +416,7 @@ function getPageAttr(link, name){
 
 var searchInput = qs('.doc-content header input');
 
-qs('.doc-content > header span').addEventListener('click', function(){
+qs('.doc-content > header code').addEventListener('click', function(){
 
     var t = searchInput;
 
@@ -427,7 +459,7 @@ function searchInFiles(str){
             var description = obj.desc ? escapeHTML(obj.desc).replace(regex, '<mark>'+obj.word+'</mark>') : 'No description for this page';
             var pageName = escapeHTML(obj.name).replace(regex, '<mark>'+obj.word+'</mark>');
             
-            HTML += '<article class="doc-search" data-page="'+obj.page+'"><header><p data-core-marker>page</p><h5>'+pageName+'</h5></header>';
+            HTML += '<article class="doc-search" data-page="'+obj.page+'"><header><p data-core-marker translate="no">page</p><h5>'+pageName+'</h5></header>';
             HTML += '<p class="doc-search-desc">'+description+'</p></article>';
         }
     }
@@ -477,4 +509,94 @@ function getCurrentPage(){
     
     var page = urlParams.get('page') || 'index';
     return page;
+}
+
+function nakkeHighlightCode(code, lang){
+
+    if(!lang) return code;
+
+    if(!/^(html|css|js|xml|sdom)$/.test(lang)){
+        lang = 'generic';
+    }
+
+    // TAGS and ATTRIBUTES
+    if(lang === "html" || lang === "xml"){
+        var matches = code.match(/(&lt;\/?)(.+?)(&gt;)/gi);
+
+        for(var i in matches){
+            var str = matches[i].replace(/([-a-z0-9]+)(=)/gi, '<span class="attribute">$1</span><span class="declaration">$2</span>')
+                                .replace(/(&lt;\/?(!--)?)(.+?)((--)?&gt;)/gi, '<span class="declaration">$1</span><span class="tag">$3</span><span class="declaration">$4</span>');
+            
+            code = code.replace(matches[i], str);
+        }
+    }
+
+    else if(lang === "sdom"){
+        code = code.replace(/(^(\t| )*| (\+|-)*)([a-z0-9]+[-a-z0-9]*!?)((\.[-_a-z0-9]+)*)/gi, '<span class="declaration">$1</span><span class="tag">$4</span><span class="class">$5</span>')
+                   .replace(/( ?\[.+?\])/gi, '<span class="attribute">$1</span>')
+                   .replace(/( ?\(.+?\))/gi, '<span class="declaration">$1</span>');
+    }
+
+    // JAVASCRIPT KEYWORDS
+    else if(lang === "js"){
+        code = code.replace(/(^| )(new |return )/gi, '$1<span class="tag">$2</span>')
+        .replace(/(^| )(continue|break)( *;)/gi, '$1<span class="tag">$2</span>$3')
+        .replace(/(^| )(else|try|catch)( *\{)/gi, '$1<span class="tag">$2</span>$3')
+        .replace(/(^| )(if|for|while)( *\()/gi, '$1<span class="tag">$2</span>$3')
+        .replace(/([a-z_]+)\((.*?)\)/gi, '<span class="function">$1</span>(<span class="declaration">$2</span>)')
+        .replace(/(function |class )/gi, '<span class="keyword">$1</span>')
+        .replace(/(var |let |const )( *[a-z_]+)/gi, '<span class="attribute">$1</span><span class="declaration">$2</span>');
+    }
+
+    // ALL STRINGS
+    if(lang === 'sdom'){
+        code = code.replace(/( ?{(?:[^}]|(?<=\\)})*})/gi, '<span class="string">$1</span>')
+                   .replace(/( (-|\+)+)(&quot;|\})/gi, '<span class="declaration">$1</span>$3');
+    }
+
+    code = code.replace(/( ?&quot;.*?&quot;)/gi, '<span class="string">$1</span>');
+    
+    if(lang !== 'sdom'){
+        code = code.replace(/( ?&#39;.*?&#39;)/gi, '<span class="string">$1</span>')
+                   .replace(/( ?`.*?`)/gi, '<span class="string">$1</span>');
+    }
+
+    // CSS
+    if(lang === 'css'){
+        code = code
+                   .replace(/( ?--[-_a-z0-9]+)( *:)/gi, '<span class="declaration">$1</span>$2')
+                   .replace(/( |\(|,|;|:)( ?[0-9]+[a-z\%µ]*)( |\)|,|;)/gi, '$1<span class="tag">$2</span>$3')
+                   .replace(/( ?\[.+?\])/gi, '<span class="attribute">$1</span>')
+                   .replace(/( ?&gt;)/gi, '<span class="declaration">$1</span>')
+                   .replace(/(^ *[-_a-z0-9]+)( *:)/gi, '<span class="declaration">$1</span>$2')
+                   .replace(/([-_a-z0-9]+)(\()/gi, '<span class="function">$1</span>$2')
+                   .replace(/( ?@[-_a-z0-9]+ +[-a-z]+)/gi, '<span class="tag">$1</span>');
+    }
+
+    // GENERIC LANG
+    if(lang === 'generic'){
+        code = code.replace(/( ?(&amp;|&gt;=?|&lt;=?|\||={2,}))/gi, '<span class="declaration">$1</span>')
+                   .replace(/( ?[0-9]+[a-z]+)/gi, '<span class="tag">$1</span>')
+                   .replace(/((^| )[-_a-z]+ *)\(/gi, '<span class="function">$1</span>(')
+                   .replace(/\[(.*?)\]/gi, '[<span class="declaration">$1</span>]')
+                   .replace(/\((.*?)\)/gi, '(<span class="declaration">$1</span>)')
+                   .replace(/(\{|\}|:| \+ | - |;$|\(|\)|\[|\])/gi, '<span class="keyword">$1</span>');
+    }
+
+    // ALL COMMENTS
+    var comment_match;
+    if(lang === 'html'){ comment_match = code.match(/&lt;!--.*?--&gt;/gi); }
+    if(lang === 'sdom'){ comment_match = code.match(/#[^a-z0-9].*/gi); }
+    if(lang === "css"){ comment_match = code.match(/\/\*.*?\*\//gi); }
+    if(lang === 'js' || lang === 'generic'){ comment_match = code.match(/(\/\/.*|\/\*.*?\*\/)/gi); }
+
+    for(var i in comment_match){
+        var str = comment_match[i].replace(/<span class="[-a-z]+">/gi, '').replace(/<\/span>/gi, '');
+        code = code.replace(comment_match[i], '<span class="comment">' + str + '</i>');
+    }
+
+    code = code.replace(/^(( |\t)+)/, '<span class="line-start">$1</span>')
+
+    return code;
+
 }

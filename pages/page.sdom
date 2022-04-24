@@ -1,0 +1,136 @@
+h1 "Structure de page"
+
+i{Dans cette section nous allons nous attarder sur la structure des pages de la
+documentation, c'est à dire la manière dont elles doivent être rédigées afin de
+permettre leur bon fonctionnement.}
+
+h3 "Les titres"
+
+p{Toute page de documentation se doit au moins d'avoir un titre de niveau 1, cela
+correspond à la balise} +q "<h1></h1>" -{en html. Il ne devrait y avoir qu'un seul
+titre de niveau 1 par page.}
+
+p{Les titres vont de} +q "h1 à h4" -{,} +q "h5 et h6" -{ne sont pas considérés comme des titres,
+c'est à dire qu'il ne seront pas affichés dans le sommaire et ne seront pas
+navigables. De plus les titres} +q "h1 et h2" -{ont le même affichage.}
+
+code [title](Hiérarchie des titres) [language](sdom)
+{h1 "Titre principal"
+h2 "Titre de niveau 2"
+h3 "Titre de niveau 3"
+h4 "Titre de niveau 4"}
+
+p +b "Attention" -{ : les titres doivent tous être au même niveau d'indentation}
+
+h3 "Les paragraphes"
+
+p{Base de tout document écrit, les paragraphes sont représentés par la balise}
+    q "<p></p>"
+
+code [title](Paragraphe simple) [language](sdom)
+{p \{Ceci est un paragraphe simple avec du texte à l'intérieur.\} }
+
+  --h4 "Italique et gras"
+
+p{Pour mettre du texte en gras ou en italique il suffit d'introduire les balises}
+    q "<i> ou <b>" -{comme enfants d'un paragraphe, ou à la place de la balise}
+    q "<p>"
+
+code [title](Gras et italique) [language](sdom)
+{p \{Ceci est un paragraphe avec du \}
+    b "gras" 
+\{ et de \}
+    i "l'italique"
+\{ à l'intérieur.\} }
+
+p{Il est bien-sur aussi possible d'utiliser la syntaxe en une ligne.}
+
+code [title](Gras et italique) [language](sdom)
+{p \{Ceci est un paragraphe avec du \} +b "gras" -\{ à l'intérieur.\} }
+
+  --h4 "Les liens"
+
+p{Pour ajouter un lien dans un paragraphe il suffit d'introduire la balise}
+    q "<a>" -{comme enfants d'un paragraphe.}
+
+p{Vous pouvez ensuite lui donner un}
+    q "[href]" -{ou encore un attribut} +q "[page]" -{pour les liens internes}
+
+code [title](Liens internes et externes) [language](sdom)
+{p \{Cliquez sur ce \} +a "lien externe" [href](https://google.com)
+p \{Cliquez sur ce \} +a "lien interne" [page](index)}
+
+  --h4 "La mise en evidence du code"
+
+p{Pour mettre en évidence du code dans un paragraphe il suffit d'introduire la balise}
+    q "<q>" -{comme enfants d'un paragraphe.}
+
+code [title](Mise en evidence du code) [language](sdom)
+{p \{Ceci est un paragraphe avec du \} +q "<code en evidence>" -\{ à l'intérieur.\} }
+
+h3 "Les images"
+
+p{Ajouter une image à l'intérieur d'une page est très simple, il suffit d'utiliser la
+balise} +q "<img>" -{et de renseigner l'attribut} +q "src" -{et facultativement les attributs}
+    q "width et align"
+
+code [title](Ajout d'image) [language](sdom)
+{img! [src](./images/lotus.webp) [width](50) [align](center)}
+
+img! [src](./images/lotus.webp) [width](200) [align](center)
+
+h3 "Les listes"
+
+p{Pour ajouter un liste, utilisez les balises} +q "<ul> ou <ol>" -{ainsi que} +q "<li>"
+{vous pouvez tout a fait imbriquer les listes entre elles.}
+
+code [title](Ajout d'image) [language](sdom)
+{ul
+    li "item 1"
+    li "item 2"
+    ol
+        li "item 3"}
+
+ul
+    li "item 1"
+    li "item 2"
+    ol
+        li "item 3"
+
+h3 "Les blocs de code"
+
+p{Les blocs de code sont une partie très importante d'une documentation, ils permettent de mettre en evidence du code
+et de rendre ainsi l'apprentissage plus facile et plus rapide.}
+
+p{Pour mettre en place un bloc de code il faut utiliser la balise} +q "<code>"
+{lui ajouter un titre, et facultativement un langage si vous désirez une colorisation syntaxique.}
+
+code [title](Bloc de code) [language](sdom)
+{code [title] (Bloc de code) [language](sdom)
+\{
+    # mon code ici
+\}}
+
+p{Les différents langages supportés sont :}
+
+ul
+    li "html"
+    li "css"
+    li "js (javascript)"
+    li "sdom (smallDom)"
+    li "generic (tout les autres langages)"
+
+p{generic tentera de generer un minimum de colorisation syntaxique pour n'importe quel autre langage
+passé à l'attribut} +q "language" -{L'exemple ci-dessous
+s'applique à du code c++.}
+
+p{Les seuls commentaires acceptés sont : } +q "// ..." -{ et } +q "/* ... */"
+
+code [title](Code en c++) [language](cpp)
+{// Your First C++ Program
+#include <iostream>
+int main() \{
+    std::cout << "Hello World!";
+    return 0;
+\}}
+

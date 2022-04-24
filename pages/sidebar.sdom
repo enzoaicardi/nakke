@@ -1,9 +1,18 @@
 
-section [title](Commencer) [char](?)
+section [title](Commencer) [char](#)
 
     a "Installation" [page](index)
 
     a "Configuration" [page](config)
 
-    a "Redaction" [page](write)
-        
+    a "Prérequis" [page](prerequis)
+
+section [title](Rédiger) [char](T)
+
+    a "Fichiers" [page](fichiers)
+
+    a "Navigation" [page](nav)
+
+    a "Structure de page" [page](page)
+
+section [title](Fin)

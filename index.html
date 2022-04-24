@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="./assets/workclass.css">
     <link rel="stylesheet" href="./assets/components.css">
     <link rel="stylesheet" href="./assets/styles.css">
+    <link rel="stylesheet" href="./assets/code.css">
 
     <!-- Change colors here -->
     <style>
@@ -57,8 +58,10 @@
     <!-- Don't touch anything here -->
     <small-dom>
 
+        div.doc-loader [data-load](0)
+
         # Global header
-        header.doc-header.mobile.mobile-flex
+        header.doc-header.mobile.mobile-flex [translate](no)
             div.doc-header-left
                 img!.doc-site-logo [src](./logo.svg)
                 p.doc-site-title "Nakke."
@@ -73,7 +76,7 @@
             # Sidebar navigation
             section.doc-sidebar
 
-                header.desktop
+                header.desktop [translate](no)
                     img!.doc-site-logo [src](./logo.svg)
                     p.doc-site-title "Nakke."
 
@@ -85,7 +88,7 @@
 
                 header
                     div.doc-header-left
-                        span.material-icons [data-core-marker] "search"
+                        code.material-icons [data-core-marker] "search"
                         input [type](text) [placeholder](search in files.)
 
                     div.doc-header-right
@@ -97,7 +100,7 @@
             # Summary navigation
             section.doc-summary
 
-                header.doc-color-mode.desktop
+                header.doc-color-mode.desktop [translate](no)
                     span.material-icons.v "light_mode"
                     span.material-icons "dark_mode"
 
@@ -117,8 +120,8 @@
     </small-dom>
 
 <script src="./assets/read-only/workspace.js"></script>
-<script src="./assets/smallDom.js"></script>
-<script src="./assets/crimson.js"></script>
+<script src="./assets/read-only/smallDom.js"></script>
+<script src="./assets/read-only/crimson.js"></script>
 <script>
     smallDomReplace();
     document.body.removeAttribute('style');
@@ -127,8 +130,8 @@
     var footer = '<footer><a href="">Back to site.</a><p>Back to top.</p></footer>';
 </script>
 
-<script src="./assets/scoreIt.js"></script>
-<script src="./assets/nakke.js"></script>
+<script src="./assets/read-only/scoreIt.js"></script>
+<script src="./assets/read-only/nakke.js"></script>
 
 </body>
 </html>

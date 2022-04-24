@@ -1,0 +1,79 @@
+
+body{
+
+    --code-tag: hsl(0, 70%, 60%);
+    --code-attribute: hsl(280, 60%, 60%);
+    --code-class: hsl(65, 60%, 50%);
+    --code-keyword: hsl(280, 80%, 60%);
+    --code-string: hsl(30, 70%, 60%);
+
+    --code-comment: var(--color-07);
+    --code-regex: hsl(130, 60%, 50%);
+
+    --code-function: hsl(45, 60%, 60%);
+    --code-declaration: hsl(190, 55%, 50%);
+
+}
+
+[data-language]{
+    white-space: pre;
+}
+[data-language] > span{
+    white-space: pre;
+}
+
+/* Colors apply */
+
+[data-language] .tag{
+    color: var(--code-tag);
+}
+
+    [data-language] .tag > *{
+        color: var(--code-tag);
+    }
+
+[data-language] .keyword{
+    color: var(--code-keyword);
+}
+[data-language] .attribute{
+    color: var(--code-attribute);
+}
+[data-language] .class{
+    color: var(--code-class);
+}
+
+[data-language] .function{
+    color: var(--code-function);
+}
+    [data-language] .function > *{
+        color: var(--code-function);
+    }
+
+[data-language] .regex{
+    color: var(--code-regex);
+}
+
+[data-language] .comment{
+    font-style: italic;
+    color: var(--code-comment);
+}
+
+[data-language] .declaration{
+    color: var(--code-declaration);
+}
+
+    [data-language] .declaration > *{
+        color: var(--code-declaration);
+    }
+
+    [data-language] .declaration > .comment{
+        color: var(--code-comment);
+    }
+
+[data-language] .string{
+    color: var(--code-string);
+}
+    [data-language] .string > *{
+        color: var(--code-string);
+    }
+    
