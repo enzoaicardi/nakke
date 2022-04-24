@@ -403,8 +403,6 @@ function nakkeHighlightSideBar(){
     for(var i=0; i<links.length; i++){
 
         var link = links[i];
-        if(link.classList.contains('v')) link.classList.remove('v');
-        
         var isPage = currentPage === getPageAttr(link);
                 
         if(isPage){
@@ -413,7 +411,11 @@ function nakkeHighlightSideBar(){
             nextPage.slug = getPageAttr(links[i+1]);
             previousPage.name = getPageAttr(links[i-1], 'name');
             previousPage.slug = getPageAttr(links[i-1]);
+
+            continue;
         }
+
+        link.classList.remove('v');
 
     }
 
@@ -521,6 +523,7 @@ function getCurrentPage(){
     var urlParams = new URLSearchParams(params);
     
     var page = urlParams.get('page') || 'index';
+    currentPage = page;
     return page;
 }
 
