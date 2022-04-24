@@ -72,12 +72,12 @@ h3 "Les images"
 
 p{Ajouter une image à l'intérieur d'une page est très simple, il suffit d'utiliser la
 balise} +q "<img>" -{et de renseigner l'attribut} +q "src" -{et facultativement les attributs}
-    q "width et align"
+    q "width, height et align"
 
 code [title](Ajout d'image) [language](sdom)
-{img! [src](./images/lotus.webp) [width](50) [align](center)}
+{img! [src](./images/lotus.webp) [height](200) [align](center)}
 
-img! [src](./images/lotus.webp) [width](200) [align](center)
+img! [src](./images/lotus.webp) [height](200) [align](center)
 
 h3 "Les listes"
 

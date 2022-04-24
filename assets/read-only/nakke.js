@@ -204,7 +204,7 @@ window.addEventListener('popstate', function(e){
 
 function nakkeImport(name, container, sidebar, state){
 
-    currentPage = name;
+    if(!sidebar) currentPage = name;
 
     var url = './pages/' + name + '.sdom';
     container = container || docContent;
