@@ -3,7 +3,6 @@ var body = document.body;
 var version = Number(qs('.doc-version').textContent) || 1;
 var colorMode = localStorage.getItem('nakke-color-mode');
 if(colorMode) body.setAttribute('class', 'ns ' + colorMode);
-if(!colorMode) body.setAttribute('class', 'ns');
 
 // SWITCH MODE
 
