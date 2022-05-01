@@ -270,7 +270,7 @@ function nakkeParseSideBar(){
                     desc.remove();
                 }
 
-                var pageParam = link.getAttribute('page') || link.textContent;
+                var pageParam = link.getAttribute('page') || link.textContent.toLowerCase();
                 var dp = link.getAttribute('dep');
                 var nw = link.getAttribute('new');
                 
