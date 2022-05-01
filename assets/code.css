@@ -1,18 +1,27 @@
 
 body{
 
-    --code-tag: hsl(0, 70%, 60%);
-    --code-attribute: hsl(280, 60%, 60%);
-    --code-class: hsl(65, 60%, 50%);
-    --code-keyword: hsl(280, 80%, 60%);
-    --code-string: hsl(30, 70%, 60%);
+    --code-hue: 0;
+
+    --code-text: var(--color-60p);
+    
+    --code-tag: hsl(calc(var(--code-hue) + 0), 70%, 60%);
+    --code-attribute: hsl(calc(var(--code-hue) + 280), 60%, 60%);
+    --code-class: hsl(calc(var(--code-hue) + 65), 60%, 50%);
+    --code-keyword: hsl(calc(var(--code-hue) + 280), 80%, 60%);
+    --code-string: hsl(calc(var(--code-hue) + 30), 70%, 60%);
 
     --code-comment: var(--color-07);
-    --code-regex: hsl(130, 60%, 50%);
+    --code-regex: hsl(calc(var(--code-hue) + 30), 60%, 50%);
 
-    --code-function: hsl(45, 60%, 60%);
-    --code-declaration: hsl(190, 55%, 50%);
+    --code-function: hsl(calc(var(--code-hue) + 45), 60%, 60%);
+    --code-declaration: hsl(calc(var(--code-hue) + 190), 55%, 50%);
 
+}
+
+/* overwrite default code color */
+.doc-table-col2 p{
+    color: var(--code-text);
 }
 
 [data-language]{

@@ -190,9 +190,9 @@ function smallDomTokeniser(code){
         }
 
         // opperators
-        else if(c === '+' || c === '-') {
+        else if(c === '+' || c === '-' || c === '=') {
             input = c; type = 'OPERATOR';
-            key = c === '+' ? 'LEVEL_UP' : 'LEVEL_DOWN';
+            key = c === '+' ? 'LEVEL_UP' : c === '-' ? 'LEVEL_DOWN' : 'LEVEL_EQUAL';
         }
 
         // text
@@ -423,6 +423,7 @@ function smallDomParser(tokens){
                 if(t.key === 'LEVEL_DOWN'){
                     level--;
                 }
+                // level equal by default don't need changes
                 wasBlank = true;
                 canNewNode = true;
                 continue;

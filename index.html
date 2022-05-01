@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 
 <!-- 
-
-    The only things you have to do here is to change the <title>, the <html lang="{mylang}">
-    Modify the main colors, and maybe the <footer> <a> href and <p> textContent
-
+    change : <title> | <html lang="?"> | header > title | colors | footer > a[href]
     You can use Ctrl (or CMD) + F "change" to find fields to modify 
-
- -->
+-->
 
 <html lang="fr">
 <head>
@@ -29,25 +25,18 @@
     <style>
         body{
             --change-colors-here: 0;
-            /* 
-            ** Main colors var - according to UI/UX standards
-
+            /** Main colors var - according to UI/UX standards
                 --color-60p (this is the 60% main color)
                 --color-30p (this is the 30% main color)
                 --color-10p (this is the 10% main color)
-
-                Color format
-
-                    If you want your main colors adaptatives :
-                        ** Replace {...} by your custom values **
-                        --color-60p: hsl({myhue}, {mysaturation}, calc(var(--s) - {mybrightness} * var(--m)));
-
-                    If you don't care about it you can use hex, rgb, ...
             
             ** Grey colors
-
                 --hue (the hue position in css hsl())
                 --saturation (the saturation percentage in css hsl())
+
+            ** CodeBox colors
+                --code-hue (the hue position added to all code colors)
+                --code-text (base text code color, default: var(--color-60p))
             */
         }
     </style>
@@ -55,15 +44,17 @@
 </head>
 <body class="ns" style="color:transparent;">
 
-    <!-- Don't touch anything here -->
     <small-dom>
 
+        # Change version (only one dot)
+        div.doc-version "0.1"
         div.doc-loader [data-load](0)
 
         # Global header
         header.doc-header.mobile.mobile-flex [translate](no)
             div.doc-header-left
                 img!.doc-site-logo [src](./logo.svg)
+                # Change header title here (1/2)
                 p.doc-site-title "Nakke."
                 
             div.doc-header-right.doc-color-mode
@@ -78,6 +69,7 @@
 
                 header.desktop [translate](no)
                     img!.doc-site-logo [src](./logo.svg)
+                    # Change header title here (2/2)
                     p.doc-site-title "Nakke."
 
                 nav.content.ns

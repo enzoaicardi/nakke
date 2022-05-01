@@ -1,7 +1,9 @@
 
 var body = document.body;
+var version = Number(qs('.doc-version').textContent) || 1;
 var colorMode = localStorage.getItem('nakke-color-mode');
-if(colorMode) body.setAttribute('class', colorMode);
+if(colorMode) body.setAttribute('class', 'ns ' + colorMode);
+if(!colorMode) body.setAttribute('class', 'ns');
 
 // SWITCH MODE
 
@@ -9,15 +11,15 @@ globalListener('click', '.doc-color-mode span', function(e){
 
     var t = e.target;
 
-    if(body.getAttribute('class') === t.textContent) return;
+    if(body.classList.contains(t.textContent)) return;
 
     if(t.textContent === 'dark_mode'){
-        body.setAttribute('class', 'dark_mode');
+        body.setAttribute('class', 'ns dark_mode');
         localStorage.setItem('nakke-color-mode', 'dark_mode');
         return;
     }
 
-    body.setAttribute('class', '');
+    body.setAttribute('class', 'ns');
     localStorage.setItem('nakke-color-mode', '');
 
 }, {passive: true});
@@ -86,30 +88,37 @@ var scrollAnimation = crimson({
     easing: easingCubic
 });
 
-globalListener('click', 'a', function(e){
+globalListener('click', '.doc-summary .content .summary a[data-anchor], .doc-content .content a[data-anchor]', function(e){
 
     e.preventDefault();
     var anchor = e.target.getAttribute('data-anchor');
-    if(!anchor) return;
-    var el = qs('#'+anchor, docContent);
-    var h = qs('.doc-content > header');
+    scrollToAnchor(anchor);
 
-    var distance = el.offsetTop - (h.offsetHeight+20);
-    var scrolled = docContent.scrollTop;
-    
-    scrollAnimation.stop();
-    scrollAnimation.change({
-        progress: 0,
-        animation: function(p){
-            var s = (distance - scrolled)*p+scrolled;
-            docContent.scrollTop = s;
-        }
-    });
-    scrollAnimation.play();
+    function scrollToAnchor(anchor){
 
-    burgerDo('close');
+        var el = qs('#'+anchor, docContent);
+        if(!el) el = qs('[data-slug="'+slugIt(anchor)+'"]', docContent);
+        if(!el) return;
+        var h = qs('.doc-content > header');
 
-}, {}, qs('.doc-summary .content .summary'));
+        var distance = el.offsetTop - (h.offsetHeight+20);
+        var scrolled = docContent.scrollTop;
+        
+        scrollAnimation.stop();
+        scrollAnimation.change({
+            progress: 0,
+            animation: function(p){
+                var s = (distance - scrolled)*p+scrolled;
+                docContent.scrollTop = s;
+            }
+        });
+        scrollAnimation.play();
+
+        burgerDo('close');
+
+    }
+
+}, {});
 
 // BACK TO TOP CLICK
 
@@ -263,12 +272,14 @@ function nakkeParseSideBar(){
                 }
 
                 var pageParam = link.getAttribute('page') || link.textContent;
+                var dp = link.getAttribute('dep');
+                var nw = link.getAttribute('new');
                 
                 obj.name = link.textContent;
                 obj.page = pageParam;
                 searchContent.push(obj);
                 
-                HTML += '<a href="?page='+pageParam+'" data-page="'+pageParam+'">'+link.textContent+'</a>';
+                HTML += '<div'+ (dp ? (' dep="'+dp+'"') : '') + (nw ? (' new="'+nw+'"') : '') +'><a href="?page='+pageParam+'" data-page="'+pageParam+'">'+link.textContent+'</a></div>';
             
             }
 
@@ -284,13 +295,20 @@ function nakkeParseContent(){
     var codeBlock = qsa('code', docContent);
     var links = qsa('a', docContent);
     var imgs = qsa('img', docContent);
+    var tables = qsa('table', docContent);
 
     toDataAttr(links, 'page');
+    toDataAttr(links, 'anchor');
     toDataAttr(imgs, 'flex');
     toStyleAttr(imgs, ['height', 'width'], 'px');
 
     for(var code of codeInline){
         code.outerHTML = '<span translate="no" data-core-marker="code">'+escapeHTML(code.textContent)+'</span>';
+    }
+
+    for(var table of tables){
+        var content = table.innerHTML;
+        table.outerHTML = '<div class="doc-table-container"><table>'+content+'</table></div>';
     }
 
     for(var code of codeBlock){
@@ -349,6 +367,12 @@ function nakkeParseContent(){
     // resized or tags can change (this can effect offsetTop)
     nakkeGenerateSummary();
 
+    var versionElements = qsa('[dep], [new]');
+
+    for(el of versionElements){
+        versionInfo(el);    
+    }
+
     function toDataAttr(elems, attr){
         for(var el of elems){
             var data = el.getAttribute(attr);
@@ -372,6 +396,16 @@ function nakkeParseContent(){
 
 }
 
+function versionInfo(el){
+    var dp = Number(el.getAttribute('dep')) || false; el.removeAttribute('dep');
+    var nw = Number(el.getAttribute('new')) || false; el.removeAttribute('new');
+
+    var value = ((dp && dp <= version) ? 'dep' : (nw && nw >= version) ? 'new' : false);
+
+    if(!value) return;
+    el.innerHTML = '<div class="version-block"><div class="version-marker '+value+'">'+ value +'</div><div>' + el.innerHTML + '</div></div>';
+}
+
 // generate summary
 function nakkeGenerateSummary(){
 
@@ -381,19 +415,21 @@ function nakkeGenerateSummary(){
     var HTML = ''; var u = 0;
 
     for(var title of titles){
-        var slug = slugIt(title.textContent).toLowerCase() + '-' + (++u);
+        var slug = slugIt(title.textContent);
+        var uuid = slug + '-' + (++u);
         var level = title.tagName.toLowerCase();
 
-        title.setAttribute('id', slug);
-        HTML += '<a class="'+level+''+(u===1 ? ' v' : '')+'" data-anchor="'+slug+'">'+escapeHTML(title.textContent)+'</a>';
-    }
-
-    function slugIt(str){
-        return str.replace(/[^a-z0-9_ -]/gi, '').replace(/ /g, '-');
+        title.setAttribute('id', uuid);
+        title.setAttribute('data-slug', slug);
+        HTML += '<a class="'+level+''+(u===1 ? ' v' : '')+'" data-anchor="'+uuid+'">'+escapeHTML(title.textContent)+'</a>';
     }
 
     summaryContent.innerHTML = HTML;
 
+}
+
+function slugIt(str){
+    return str.replace(/^( |\t)+/gi, 'x').replace(/[^a-z0-9_ -]/gi, 'x').replace(/ /g, '-').toLowerCase();
 }
 
 function nakkeHighlightSideBar(){
@@ -559,7 +595,9 @@ function nakkeHighlightCode(code, lang){
         .replace(/(^| )(continue|break)( *;)/gi, '$1<span class="tag">$2</span>$3')
         .replace(/(^| )(else|try|catch)( *\{)/gi, '$1<span class="tag">$2</span>$3')
         .replace(/(^| )(if|for|while)( *\()/gi, '$1<span class="tag">$2</span>$3')
+        .replace(/([a-z_]+):(.*?)(,|[^;]?$)/gi, '<span class="declaration">$1</span>:$2$3')
         .replace(/([a-z_]+)\((.*?)\)/gi, '<span class="function">$1</span>(<span class="declaration">$2</span>)')
+        .replace(/([a-z_]+)\(/gi, '<span class="function">$1</span>(')
         .replace(/(function |class )/gi, '<span class="keyword">$1</span>')
         .replace(/(var |let |const )( *[a-z_]+)/gi, '<span class="attribute">$1</span><span class="declaration">$2</span>');
     }
@@ -602,13 +640,13 @@ function nakkeHighlightCode(code, lang){
     // ALL COMMENTS
     var comment_match;
     if(lang === 'html'){ comment_match = code.match(/&lt;!--.*?--&gt;/gi); }
-    if(lang === 'sdom'){ comment_match = code.match(/#[^a-z0-9].*/gi); }
+    if(lang === 'sdom'){ comment_match = code.match(/(^| )#[^a-z0-9].*/gi); }
     if(lang === "css"){ comment_match = code.match(/\/\*.*?\*\//gi); }
     if(lang === 'js' || lang === 'generic'){ comment_match = code.match(/(\/\/.*|\/\*.*?\*\/)/gi); }
 
     for(var i in comment_match){
         var str = comment_match[i].replace(/<span class="[-a-z]+">/gi, '').replace(/<\/span>/gi, '');
-        code = code.replace(comment_match[i], '<span class="comment">' + str + '</i>');
+        code = code.replace(comment_match[i], '<span class="comment">' + str + '</span>');
     }
 
     code = code.replace(/^(( |\t)+)/, '<span class="line-start">$1</span>')

@@ -135,3 +135,47 @@ int main() \{
     return 0;
 \}}
 
+h3 "Les tableaux"
+
+p{Pour mettre en place un tableau il est necessaire d'utiliser la balise} +q "<table>"
+{ainsi que les balises} +q "<tr> et <td>" -{vous pouvez aussi utiliser les balises} +q "<thead> et <tbody>"
+
+code [title](Tableaux) [language](sdom)
+{table
+    thead
+        tr
+            td "Tableau ?"
+            td "Bloc de code ?"
+            td "Image ?"
+    tbody
+        tr
+            td "Oui"
+            td "Non"
+            td "Non"}
+
+table
+    thead
+        tr
+            td "Tableau ?"
+            td "Bloc de code ?"
+            td "Image ?"
+    tbody
+        tr
+            td "Oui"
+            td "Non"
+            td "Non"
+
+h3 "Les elements nouveaux et dépréciés"
+
+p{Un élément déprécié doit simplement comporter l'attribut} +q "[dep]" -{suivi du numéro de version depuis laquelle l'élément est déprécié.}
+p{Un élément nouveau doit comporter l'attribut} +q "[new]" -{suivi du numéro de version jusqu'auquel l'élément est considéré comme nouveau.}
+
+p{l'attribut est disponible pour :}
+ul
+    li "Les paragraphes"
+    li "Les titres"
+    li "Les liens de sidebar"
+
+h4 "Element déprécié" [dep](0.1)
+
+h4 "Element nouveau" [new](0.1)

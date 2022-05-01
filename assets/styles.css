@@ -378,6 +378,36 @@ main.doc-page{
             border-radius: var(--radius-small);
         }
 
+    .doc-table-container{
+        margin: var(--gap-medium) 0;
+        max-width: calc(100% - var(--gap-mega) * 2);
+        overflow: auto;
+    }
+
+    .doc-content table{
+        table-layout: fixed;
+        border-collapse: collapse;
+
+        width: max-content;
+        border-radius: var(--radius-small);
+    }
+
+        .doc-content table td{
+            max-width: calc(var(--size-large) * 3);
+            padding: var(--gap-small) var(--gap-normal);
+
+            word-wrap: break-word;
+            vertical-align: top;
+            font-size: var(--text-normal);
+
+            border: 1px solid var(--color-09);
+        }
+
+        .doc-content table thead td{
+            font-weight: var(--font-medium);
+            background-color: var(--color-095);
+        }
+
     .doc-content-nav{
         display: flex;
         justify-content: space-between;
@@ -479,10 +509,10 @@ main.doc-page{
 
             .doc-summary a{
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
 
-                min-height: var(--size-small);
-                padding: 0 var(--gap-large);
+                /* min-height: var(--size-small); */
+                padding: var(--gap-small) var(--gap-large);
                 font-size: var(--text-small);
                 --color-link: var(--color-07);
             }
@@ -496,10 +526,16 @@ main.doc-page{
                 background-color: var(--color-09);
                 /* font-weight: var(--font-medium); */
             }
+                .doc-summary .h3::before,
+                .doc-summary .h4::before{
+                    content: "\2022";
+                    color: var(--color-08);
+                    margin-right: var(--gap-normal);
+                    margin-left: 0;
+                }
 
-            .doc-summary .h3{
-                padding-left: calc(var(--gap-large) + var(--gap-normal));
-            }
-            .doc-summary .h4{
-                padding-left: calc(var(--gap-large) + var(--gap-normal) * 2);
-            }
+                .doc-summary .h4::before{
+                    content: "\203A";
+                    font-weight: var(--font-semibold);
+                    margin-left: var(--gap-medium);
+                }
