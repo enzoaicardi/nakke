@@ -18,8 +18,8 @@ globalListener('click', '.doc-color-mode span', function(e){
         return;
     }
 
-    body.setAttribute('class', 'ns');
-    localStorage.setItem('nakke-color-mode', '');
+    body.setAttribute('class', 'ns light_mode');
+    localStorage.setItem('nakke-color-mode', 'light_mode');
 
 }, {passive: true});
 
@@ -232,13 +232,18 @@ function nakkeImport(name, container, sidebar, state){
         }
     })
     .then(function(code) {
+
         if(!code) return;
         container.innerHTML = smallDomTranspile(code).replace(/<img/g, '<img loading="lazy"');
-        if(sidebar) {nakkeParseSideBar(); return;}
-        docContent.scrollTop = 0;
+
+        if(sidebar) nakkeParseSideBar();
         nakkeHighlightSideBar();
+        if(sidebar) return;
+
+        docContent.scrollTop = 0;
         nakkeParseContent();
         loadStatus('100');
+        
     });
 
 }
