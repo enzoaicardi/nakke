@@ -88,9 +88,15 @@ body{
 
 @media screen and (max-width: 450px) {
     body{
+        --gap-base: 0.6px;
         --gap-small: 6px;
         --gap-normal: 10px;
-        --gap-base: 0.6px;
+    }
+    h1:hover::before,
+    h2:hover::before,
+    h3:hover::before,
+    h4:hover::before{
+        display: none;
     }
 }
 
@@ -334,6 +340,9 @@ main.doc-page{
 
         .doc-content ul li,
         .doc-content ol li{
+            height: auto;
+            word-wrap: break-word;
+            
             color: var(--color-05);
             padding-left: var(--gap-normal);
             list-style: none;
