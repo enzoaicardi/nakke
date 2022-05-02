@@ -1,29 +1,29 @@
 h1 "Fichiers"
 
-i{Dans cette section nous allons parler briévement de la structure des
+i {Dans cette section nous allons parler briévement de la structure des
 fichiers et dossiers de Nakke.}
 
 h2 "La racine"
 
-p{A la racine de la documentation vous trouverez différents fichiers et dossiers.
+p {A la racine de la documentation vous trouverez différents fichiers et dossiers.
 Vous n'aurez ici qu'a vous occuper de la page} +q "index.html"
 {comme décrit dans la section } +a "configuration" [page](config)
 
 ul
-    li{Le dossier} +q "images" -{est ici pour stocker les images relatives à votre documentation,
+    li {Le dossier} +q "images" -{est ici pour stocker les images relatives à votre documentation,
     mais il n'est en aucun cas obligatoire de l'utiliser.}
 
-    li{Le dossier} +q "assets" -{ne doit pas être modifié.}
+    li {Le dossier} +q "assets" -{ne doit pas être modifié.}
 
-    li{Le dossier} +q "pages" -{contient les différentes pages de votre documentation.}
+    li {Le dossier} +q "pages" -{contient les différentes pages de votre documentation.}
 
 h3 "Pages"
 
-p{Dans ce dossier vous trouverez les page de base de la documentation Nakke, vous pouvez tout supprimer
+p {Dans ce dossier vous trouverez les page de base de la documentation Nakke, vous pouvez tout supprimer
 à l'exception du dossier} +q "default-files" -{qui vous sera très utile afin de comprendre
 la structure des documents.}
 
-p{Les pages}
+p {Les pages}
     q "index.sdom"
     q "sidebar.sdom"
     q "404.sdom"

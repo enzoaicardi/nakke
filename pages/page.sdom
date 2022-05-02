@@ -1,16 +1,16 @@
 h1 "Structure de page"
 
-i{Dans cette section nous allons nous attarder sur la structure des pages de la
+i {Dans cette section nous allons nous attarder sur la structure des pages de la
 documentation, c'est à dire la manière dont elles doivent être rédigées afin de
 permettre leur bon fonctionnement.}
 
 h3 "Les titres"
 
-p{Toute page de documentation se doit au moins d'avoir un titre de niveau 1, cela
+p {Toute page de documentation se doit au moins d'avoir un titre de niveau 1, cela
 correspond à la balise} +q "<h1></h1>" -{en html. Il ne devrait y avoir qu'un seul
 titre de niveau 1 par page.}
 
-p{Les titres vont de} +q "h1 à h4" -{,} +q "h5 et h6" -{ne sont pas considérés comme des titres,
+p {Les titres vont de} +q "h1 à h4" -{,} +q "h5 et h6" -{ne sont pas considérés comme des titres,
 c'est à dire qu'il ne seront pas affichés dans le sommaire et ne seront pas
 navigables. De plus les titres} +q "h1 et h2" -{ont le même affichage.}
 
@@ -24,7 +24,7 @@ p +b "Attention" -{ : les titres doivent tous être au même niveau d'indentatio
 
 h3 "Les paragraphes"
 
-p{Base de tout document écrit, les paragraphes sont représentés par la balise}
+p {Base de tout document écrit, les paragraphes sont représentés par la balise}
     q "<p></p>"
 
 code [title](Paragraphe simple) [language](sdom)
@@ -32,7 +32,7 @@ code [title](Paragraphe simple) [language](sdom)
 
   --h4 "Italique et gras"
 
-p{Pour mettre du texte en gras ou en italique il suffit d'introduire les balises}
+p {Pour mettre du texte en gras ou en italique il suffit d'introduire les balises}
     q "<i> ou <b>" -{comme enfants d'un paragraphe, ou à la place de la balise}
     q "<p>"
 
@@ -43,17 +43,17 @@ code [title](Gras et italique) [language](sdom)
     i "l'italique"
 \{ à l'intérieur.\} }
 
-p{Il est bien-sur aussi possible d'utiliser la syntaxe en une ligne.}
+p {Il est bien-sur aussi possible d'utiliser la syntaxe en une ligne.}
 
 code [title](Gras et italique) [language](sdom)
 {p \{Ceci est un paragraphe avec du \} +b "gras" -\{ à l'intérieur.\} }
 
   --h4 "Les liens"
 
-p{Pour ajouter un lien dans un paragraphe il suffit d'introduire la balise}
+p {Pour ajouter un lien dans un paragraphe il suffit d'introduire la balise}
     q "<a>" -{comme enfants d'un paragraphe.}
 
-p{Vous pouvez ensuite lui donner un}
+p {Vous pouvez ensuite lui donner un}
     q "[href]" -{ou encore un attribut} +q "[page]" -{pour les liens internes}
 
 code [title](Liens internes et externes) [language](sdom)
@@ -62,7 +62,7 @@ p \{Cliquez sur ce \} +a "lien interne" [page](index)}
 
   --h4 "La mise en evidence du code"
 
-p{Pour mettre en évidence du code dans un paragraphe il suffit d'introduire la balise}
+p {Pour mettre en évidence du code dans un paragraphe il suffit d'introduire la balise}
     q "<q>" -{comme enfants d'un paragraphe.}
 
 code [title](Mise en evidence du code) [language](sdom)
@@ -70,7 +70,7 @@ code [title](Mise en evidence du code) [language](sdom)
 
 h3 "Les images"
 
-p{Ajouter une image à l'intérieur d'une page est très simple, il suffit d'utiliser la
+p {Ajouter une image à l'intérieur d'une page est très simple, il suffit d'utiliser la
 balise} +q "<img>" -{et de renseigner l'attribut} +q "src" -{et facultativement les attributs}
     q "width, height et flex"
     
@@ -82,7 +82,7 @@ img! [src](./images/lotus.webp) [height](200) [flex](center)
 
 h3 "Les listes"
 
-p{Pour ajouter un liste, utilisez les balises} +q "<ul> ou <ol>" -{ainsi que} +q "<li>"
+p {Pour ajouter un liste, utilisez les balises} +q "<ul> ou <ol>" -{ainsi que} +q "<li>"
 {vous pouvez tout a fait imbriquer les listes entre elles.}
 
 code [title](Ajout d'image) [language](sdom)
@@ -100,10 +100,10 @@ ul
 
 h3 "Les blocs de code"
 
-p{Les blocs de code sont une partie très importante d'une documentation, ils permettent de mettre en evidence du code
+p {Les blocs de code sont une partie très importante d'une documentation, ils permettent de mettre en evidence du code
 et de rendre ainsi l'apprentissage plus facile et plus rapide.}
 
-p{Pour mettre en place un bloc de code il faut utiliser la balise} +q "<code>"
+p {Pour mettre en place un bloc de code il faut utiliser la balise} +q "<code>"
 {lui ajouter un titre, et facultativement un langage si vous désirez une colorisation syntaxique.}
 
 code [title](Bloc de code) [language](sdom)
@@ -112,7 +112,7 @@ code [title](Bloc de code) [language](sdom)
     # mon code ici
 \}}
 
-p{Les différents langages supportés sont :}
+p {Les différents langages supportés sont :}
 
 ul
     li "html"
@@ -121,11 +121,11 @@ ul
     li "sdom (smallDom)"
     li "generic (tout les autres langages)"
 
-p{generic tentera de generer un minimum de colorisation syntaxique pour n'importe quel autre langage
+p {generic tentera de generer un minimum de colorisation syntaxique pour n'importe quel autre langage
 passé à l'attribut} +q "language" -{L'exemple ci-dessous
 s'applique à du code c++.}
 
-p{Les seuls commentaires acceptés sont : } +q "// ..." -{ et } +q "/* ... */"
+p {Les seuls commentaires acceptés sont : } +q "// ..." -{ et } +q "/* ... */"
 
 code [title](Code en c++) [language](cpp)
 {// Your First C++ Program
@@ -137,7 +137,7 @@ int main() \{
 
 h3 "Les tableaux"
 
-p{Pour mettre en place un tableau il est necessaire d'utiliser la balise} +q "<table>"
+p {Pour mettre en place un tableau il est necessaire d'utiliser la balise} +q "<table>"
 {ainsi que les balises} +q "<tr> et <td>" -{vous pouvez aussi utiliser les balises} +q "<thead> et <tbody>"
 
 code [title](Tableaux) [language](sdom)
@@ -167,10 +167,10 @@ table
 
 h3 "Les elements nouveaux et dépréciés"
 
-p{Un élément déprécié doit simplement comporter l'attribut} +q "[dep]" -{suivi du numéro de version depuis laquelle l'élément est déprécié.}
-p{Un élément nouveau doit comporter l'attribut} +q "[new]" -{suivi du numéro de version jusqu'auquel l'élément est considéré comme nouveau.}
+p {Un élément déprécié doit simplement comporter l'attribut} +q "[dep]" -{suivi du numéro de version depuis laquelle l'élément est déprécié.}
+p {Un élément nouveau doit comporter l'attribut} +q "[new]" -{suivi du numéro de version jusqu'auquel l'élément est considéré comme nouveau.}
 
-p{l'attribut est disponible pour :}
+p {l'attribut est disponible pour :}
 ul
     li "Les paragraphes"
     li "Les titres"

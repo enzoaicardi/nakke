@@ -2,16 +2,16 @@ h1 "Prérequis"
 
 h3 "SmallDom"
 
-p{Afin de faciliter l'écriture et la lisibilité du code Nakke utilise}
+p {Afin de faciliter l'écriture et la lisibilité du code Nakke utilise}
     q "smallDom.js"
 {qui est un transpilateur qui convertit du code écrit en sdom en code html.}
 
-p{smallDom est relativement simple à apprendre et à comprendre, il est
+p {smallDom est relativement simple à apprendre et à comprendre, il est
 néanmoins conseillé d'en lire la } +a [href](https://smalldom.aicardi.pro) "documentation"
 { en ligne.}
 
 h3 "Serveur local"
 
-p{Pour tester la documentation en local vous devez disposer d'un serveur local,
+p {Pour tester la documentation en local vous devez disposer d'un serveur local,
 aussi il est inutile d'utiliser wamp, xamp, etc... préférez plutôt une extension de votre
 application de developpement, comme live-server sur vscode.}
