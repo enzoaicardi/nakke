@@ -300,6 +300,7 @@ function nakkeParseContent(){
     var links = qsa('a', docContent);
     var imgs = qsa('img', docContent);
     var tables = qsa('table', docContent);
+    var lists = qsa('ul li, ol li', docContent);
 
     toDataAttr(links, 'page');
     toDataAttr(links, 'anchor');
@@ -308,6 +309,10 @@ function nakkeParseContent(){
 
     for(var code of codeInline){
         code.outerHTML = '<span translate="no" data-core-marker="code">'+escapeHTML(code.textContent)+'</span>';
+    }
+
+    for(var list of lists){
+        list.innerHTML = '<div class="list-dot"></div><div class="list-content">'+list.innerHTML+'</div>';
     }
 
     for(var table of tables){

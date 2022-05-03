@@ -340,33 +340,32 @@ main.doc-page{
 
         .doc-content ul li,
         .doc-content ol li{
-            height: max-content;
-            word-wrap: break-word;
-            
+            display: flex;
+
             color: var(--color-05);
             padding-left: var(--gap-normal);
             list-style: none;
-            overflow: hidden;
         }
 
-        .doc-content ol > li::before{
+        .doc-content ol > li .list-dot::before{
             content: "\203A";
         }
-        .doc-content ul > li::before{
+        .doc-content ul > li .list-dot::before{
             content: "\2022";
         }
 
-        .doc-content ul li::before,
-        .doc-content ol li::before{
-            display: block;
-            float: left;
-            height: 100%;
-            margin-right: var(--gap-medium);
-
+        .doc-content ul li .list-dot::before,
+        .doc-content ol li .list-dot::before{
             color: var(--color-03);
             font-size: var(--text-normal);
             font-weight: var(--font-semibold);
         }
+
+            .doc-content .list-dot{
+                flex: none;
+                height: 100%;
+                margin-right: var(--gap-medium);
+            }
 
         .doc-content ul ul,
         .doc-content ul ol,
