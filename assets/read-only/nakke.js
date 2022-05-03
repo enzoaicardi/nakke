@@ -589,6 +589,7 @@ function nakkeHighlightCode(code, lang){
 
     else if(lang === "sdom"){
         code = code.replace(/(^(\t| )*| (\+|-)*)([a-z0-9]+[-a-z0-9]*!?)((\.[-_a-z0-9]+)*)/gi, '<span class="declaration">$1</span><span class="tag">$4</span><span class="class">$5</span>')
+                   .replace(/( ?[a-zA-Z]+)<\/span><span class="class"> ?<\/span>\(/gi, '<span class="function">$1</span></span>(')
                    .replace(/( ?\[.+?\])/gi, '<span class="attribute">$1</span>')
                    .replace(/( ?\(.+?\))/gi, '<span class="declaration">$1</span>');
     }
@@ -600,8 +601,9 @@ function nakkeHighlightCode(code, lang){
         .replace(/(^| )(else|try|catch)( *\{)/gi, '$1<span class="tag">$2</span>$3')
         .replace(/(^| )(if|for|while)( *\()/gi, '$1<span class="tag">$2</span>$3')
         .replace(/([a-z_]+):(.*?)(,|[^;]?$)/gi, '<span class="declaration">$1</span>:$2$3')
-        .replace(/([a-z_]+)\((.*?)\)/gi, '<span class="function">$1</span>(<span class="declaration">$2</span>)')
-        .replace(/([a-z_]+)\(/gi, '<span class="function">$1</span>(')
+        .replace(/\(([^\(]*?)\)( *\=\&gt;)/gi, '(<span class="declaration">$1</span>)<span class="function">$2</span>')
+        .replace(/([a-z_]+)\(([^\(]*?)\)/gi, '<span class="function">$1</span>(<span class="declaration">$2</span>)')
+        .replace(/([a-z_]+ *)\(/gi, '<span class="function">$1</span>(')
         .replace(/(function |class )/gi, '<span class="keyword">$1</span>')
         .replace(/(var |let |const )( *[a-z_]+)/gi, '<span class="attribute">$1</span><span class="declaration">$2</span>');
     }
@@ -638,7 +640,7 @@ function nakkeHighlightCode(code, lang){
                    .replace(/((^| )[-_a-z]+ *)\(/gi, '<span class="function">$1</span>(')
                    .replace(/\[(.*?)\]/gi, '[<span class="declaration">$1</span>]')
                    .replace(/\((.*?)\)/gi, '(<span class="declaration">$1</span>)')
-                   .replace(/(\{|\}|:| \+ | - |;$|\(|\)|\[|\])/gi, '<span class="keyword">$1</span>');
+                   .replace(/( ?(\{|\}|:| \+ | - |;$|\(|\)|\[|\]))/gi, '<span class="keyword">$1</span>');
     }
 
     // ALL COMMENTS

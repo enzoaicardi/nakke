@@ -13,7 +13,7 @@ p {Installer Nakke est relativement simple, il vous suffit de copier l'ensemble 
 
 p {La seule page qui effectue tout le rendu de la documentation est la page} +q {index.html} 
 
-code [title](Exemple de structure) [language](generic)
+code [title](Exemple de structure) [language](folder)
 {[] assets
 index.html (website index)
 

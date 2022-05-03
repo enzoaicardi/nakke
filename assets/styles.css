@@ -340,12 +340,13 @@ main.doc-page{
 
         .doc-content ul li,
         .doc-content ol li{
-            height: auto;
+            height: max-content;
             word-wrap: break-word;
             
             color: var(--color-05);
             padding-left: var(--gap-normal);
             list-style: none;
+            overflow: hidden;
         }
 
         .doc-content ol > li::before{
