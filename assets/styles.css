@@ -433,6 +433,8 @@ main.doc-page{
         }
 
     .doc-content .content > footer{
+        user-select: none;
+        
         display: flex;
         justify-content: space-between;
         align-items: center;

@@ -1,6 +1,7 @@
 
 var body = document.body;
 var version = Number(qs('.doc-version').textContent) || 1;
+var docTitle = qs('title').textContent;
 var colorMode = localStorage.getItem('nakke-color-mode');
 if(colorMode) body.setAttribute('class', 'ns ' + colorMode);
 
@@ -10,7 +11,7 @@ globalListener('click', '.doc-color-mode span', function(e){
 
     var t = e.target;
 
-    if(body.classList.contains(t.textContent)) return;
+    if(body.classList.contains(t.textContent)) {return;}
 
     if(t.textContent === 'dark_mode'){
         body.setAttribute('class', 'ns dark_mode');
@@ -28,7 +29,7 @@ globalListener('click', '.doc-color-mode span', function(e){
 var docContent = qs('.doc-content .content');
 var pageLoader = qs('body > .doc-loader');
 function loadStatus(progress, hidden){
-    if(!hidden) pageLoader.setAttribute('data-load', progress);
+    if(!hidden) {pageLoader.setAttribute('data-load', progress);}
 }
 
 // get the current page only on first load
@@ -72,7 +73,7 @@ globalListener('click', '.cat-content a, .doc-content .doc-content-nav a, .doc-c
 
     e.preventDefault();
     var pageName = e.target.getAttribute('data-page') || '404';
-    if(pageName === currentPage) return;
+    if(pageName === currentPage) {return;}
     nakkeImport(pageName);
 
     burgerDo('close');
@@ -96,8 +97,8 @@ globalListener('click', '.doc-summary .content .summary a[data-anchor], .doc-con
     function scrollToAnchor(anchor){
 
         var el = qs('#'+anchor, docContent);
-        if(!el) el = qs('[data-slug="'+slugIt(anchor)+'"]', docContent);
-        if(!el) return;
+        if(!el) {el = qs('[data-slug="'+slugIt(anchor)+'"]', docContent);}
+        if(!el) {return;}
         var h = qs('.doc-content > header');
 
         var distance = el.offsetTop - (h.offsetHeight+20);
@@ -141,15 +142,15 @@ var scrollEventShouldWait = false;
 
 docContent.addEventListener('scroll', function(){
     
-    if(scrollEventShouldWait) return;
+    if(scrollEventShouldWait) {return;}
 
     scrollEventShouldWait = true;
     setTimeout(() => { 
         var sts = qs('.doc-summary .summary a.v');
-        if(sts) sts.classList.remove('v');
+        if(sts) {sts.classList.remove('v');}
 
         var summaryTitle = qs('.doc-summary .summary a[data-anchor="' + currentContentAnchor() + '"]');
-        if(summaryTitle) summaryTitle.classList.add('v');
+        if(summaryTitle) {summaryTitle.classList.add('v');}
 
         scrollEventShouldWait = false;
     }, 600);
@@ -180,7 +181,7 @@ if (navigator.clipboard) {
     globalListener('click', '.doc-code-box > header span[data-core-marker]', function(e){
 
         var ct = e.target.getAttribute('data-content');
-        if(!ct) return;
+        if(!ct) {return;}
 
         var copied = crimson({
             duration: 500,
@@ -212,8 +213,8 @@ window.addEventListener('popstate', function(e){
 
 function nakkeImport(name, container, sidebar, state){
 
-    if(!sidebar && name === 'sidebar') name = '404';
-    if(!sidebar) currentPage = name;
+    if(!sidebar && name === 'sidebar') {name = '404';}
+    if(!sidebar) {currentPage = name;}
 
     var url = './pages/' + name + '.sdom';
     container = container || docContent;
@@ -223,7 +224,7 @@ function nakkeImport(name, container, sidebar, state){
     fetch(url)
     .then(function(response) {
         if(response.ok){
-            if(!state) history.pushState({page: name}, '', '?page='+name);
+            if(!state) {history.pushState({page: name}, '', '?page='+name);}
             loadStatus('50', sidebar);
             return response.text();
         }else{
@@ -233,12 +234,13 @@ function nakkeImport(name, container, sidebar, state){
     })
     .then(function(code) {
 
-        if(!code) return;
-        container.innerHTML = smallDomTranspile(code).replace(/<img/g, '<img loading="lazy"');
+        if(!code) {container.innerHTML = "<h1>This page is empty</h1><p>Try to come back later.</p>";}
+        if(code)  {container.innerHTML = smallDomTranspile(code).replace(/<img/g, '<img loading="lazy"');}
 
-        if(sidebar) nakkeParseSideBar();
+        if(sidebar) {nakkeParseSideBar();}
         nakkeHighlightSideBar();
-        if(sidebar) return;
+
+        if(sidebar) {return;}
 
         docContent.scrollTop = 0;
         nakkeParseContent();
@@ -331,7 +333,7 @@ function nakkeParseContent(){
 
         for(var i=0; i<pre.length; i++){
             var regex = new RegExp("^"+indent)
-            if(indent) pre[i] = pre[i].replace(regex, '');
+            if(indent) {pre[i] = pre[i].replace(regex, '');}
             col1 += '<p>'+(i+1)+'</p>';
             col2 += '<p>'+nakkeHighlightCode(escapeHTML(pre[i]), lang)+'</p>';
         }
@@ -397,7 +399,7 @@ function nakkeParseContent(){
             var style = '';
             for(prop of array){
                 var val = el.getAttribute(prop) || false;
-                if(val) style += prop + ':' + val + suffix + ';';
+                if(val) {style += prop + ':' + val + suffix + ';';}
             }
             el.setAttribute('style', style);
         }
@@ -411,7 +413,7 @@ function versionInfo(el){
 
     var value = ((dp && dp <= version) ? 'dep' : (nw && nw >= version) ? 'new' : false);
 
-    if(!value) return;
+    if(!value) {return;}
     el.innerHTML = '<div class="version-block"><div class="version-marker '+value+'">'+ value +'</div><div>' + el.innerHTML + '</div></div>';
 }
 
@@ -444,6 +446,7 @@ function slugIt(str){
 function nakkeHighlightSideBar(){
 
     var links = qsa('.doc-sidebar .content .cat-content a');
+    var pageFound = false;
 
     for(var i=0; i<links.length; i++){
 
@@ -451,7 +454,12 @@ function nakkeHighlightSideBar(){
         var isPage = currentPage === getPageAttr(link);
                 
         if(isPage){
+
+            // underline sidebar link and change the page title
             link.classList.add('v');
+            qs('title').textContent = link.textContent + docTitle;
+            pageFound = true;
+
             nextPage.name = getPageAttr(links[i+1], 'name');
             nextPage.slug = getPageAttr(links[i+1]);
             previousPage.name = getPageAttr(links[i-1], 'name');
@@ -464,11 +472,13 @@ function nakkeHighlightSideBar(){
 
     }
 
+    if(!pageFound) {qs('title').textContent = 'Not Found' + docTitle;}
+
 }
 
 function getPageAttr(link, name){
-    if(!link) return '';
-    if(name) return link.textContent;
+    if(!link) {return '';}
+    if(name)  {return link.textContent;}
     return link.getAttribute('data-page') || '404';
 }
 
@@ -480,7 +490,7 @@ qs('.doc-content > header code').addEventListener('click', function(){
 
     var t = searchInput;
 
-    if(t.value) searchInFiles(t.value);
+    if(t.value) {searchInFiles(t.value);}
     else {nakkeImport(currentPage);}
 
     burgerDo('close');
@@ -563,7 +573,7 @@ function searchScoreUpdate(str){
  */
 function getCurrentPage(){
     var params = window.location.search;
-    if(!params) return 'index';
+    if(!params) {return 'index';}
 
     var urlParams = new URLSearchParams(params);
     
@@ -574,7 +584,7 @@ function getCurrentPage(){
 
 function nakkeHighlightCode(code, lang){
 
-    if(!lang) return code;
+    if(!lang) {return code;}
 
     if(!/^(html|css|js|xml|sdom)$/.test(lang)){
         lang = 'generic';
@@ -615,8 +625,9 @@ function nakkeHighlightCode(code, lang){
 
     // ALL STRINGS
     if(lang === 'sdom'){
-        code = code.replace(/( ?{(?:[^}]|(?<=\\)})*})/gi, '<span class="string">$1</span>')
-                   .replace(/( (-|\+)+)(&quot;|\})/gi, '<span class="declaration">$1</span>$3');
+        code = code.replace(/( (-|\+)+)(&quot;|\{)/gi, '<span class="declaration">$1</span>$3')
+                   .replace(/( ?{(?:[^}]|(?<=\\)})*})/gi, '<span class="string">$1</span>');
+                   
     }
 
     code = code.replace(/( ?&quot;.*?&quot;)/gi, '<span class="string">$1</span>');

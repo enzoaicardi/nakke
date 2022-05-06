@@ -112,6 +112,8 @@ code [title](Bloc de code) [language](sdom)
     # mon code ici
 \}}
 
+p {Le code est analysé ligne par ligne, pour cette raison la colorisation multiline du texte} +q "STRING" -{est impossible.}
+
 p {Les différents langages supportés sont :}
 
 ul
