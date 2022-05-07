@@ -54,7 +54,8 @@
         header.doc-header.mobile.mobile-flex [translate](no)
             div.doc-header-left
                 img!.doc-site-logo [src](./logo.svg)
-                # Change header title here (1/2)
+                template(site_title)
+                # Change header title here
                 p.doc-site-title "Nakke."
                 
             div.doc-header-right.doc-color-mode
@@ -69,8 +70,7 @@
 
                 header.desktop.doc-header-left [translate](no)
                     img!.doc-site-logo [src](./logo.svg)
-                    # Change header title here (2/2)
-                    p.doc-site-title "Nakke."
+                    include(site_title)
 
                 nav.content.ns
                     

@@ -118,7 +118,7 @@ body > header{
         flex: none;
         display: flex;
         align-items: center;
-        gap: var(--gap-normal);
+        /* gap: var(--gap-normal); */
     }
 
     .doc-site-title{
