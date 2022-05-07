@@ -320,14 +320,12 @@ main.doc-page{
                 flex: none;
                 margin-left: var(--gap-mega);
                 margin-right: var(--gap-mega);
-                margin-top: var(--gap-normal);
                 margin-bottom: var(--gap-normal);
             }
-            .doc-content .content > *:first-child{margin-bottom: 0;}
 
                 .doc-content .doc-code-box{
                     margin-top: var(--gap-normal);
-                    margin-bottom: var(--gap-normal);
+                    margin-bottom: calc(var(--gap-normal) * 2);
                 }
                 
                 .doc-content h1,
@@ -351,7 +349,7 @@ main.doc-page{
             flex-direction: column;
             gap: var(--gap-small);
             margin-top: var(--gap-normal);
-            margin-bottom: var(--gap-normal);
+            margin-bottom: calc(var(--gap-normal) * 2);
         }   
 
         .doc-content ul li,
@@ -392,7 +390,7 @@ main.doc-page{
 
         .doc-content .content img{
             margin-top: var(--gap-medium);
-            margin-bottom: var(--gap-medium);
+            margin-bottom: calc(var(--gap-normal) + var(--gap-medium));
 
             /* width: max-content; */
             max-width: calc(100% - var(--gap-mega) * 2);
