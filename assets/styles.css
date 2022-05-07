@@ -306,7 +306,7 @@ main.doc-page{
 
             display: flex;
             flex-direction: column;
-            gap: var(--gap-normal);
+            /* gap: var(--gap-normal); */
         }
 
             .doc-content .content i{
@@ -320,7 +320,11 @@ main.doc-page{
                 flex: none;
                 margin-left: var(--gap-mega);
                 margin-right: var(--gap-mega);
+                margin-top: var(--gap-normal);
+                margin-bottom: var(--gap-normal);
             }
+            .doc-content .content > *:first-child{margin-bottom: 0;}
+            .doc-content .content > *:last-child{margin-top: 0;}
 
                 .doc-content .doc-code-box{
                     margin-top: var(--gap-normal);
