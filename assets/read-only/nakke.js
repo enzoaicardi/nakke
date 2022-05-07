@@ -606,7 +606,7 @@ function nakkeHighlightCode(code, lang){
         code = code.replace(/(^(\t| )*| (\+|-)*)([a-z0-9]+[-a-z0-9]*!?)((\.[-_a-z0-9]+)*)/gi, '<span class="declaration">$1</span><span class="tag">$4</span><span class="class">$5</span>')
                    .replace(/( ?[a-zA-Z]+)<\/span><span class="class"> ?<\/span>\(/gi, '<span class="function">$1</span></span>(')
                    .replace(/( ?\[.+?\])/gi, '<span class="attribute">$1</span>')
-                   .replace(/( ?\(.+?\))/gi, '<span class="declaration">$1</span>');
+                   .replace(/( ?\((\\\)|[^\)][^\)\\]?)*\))/gi, '<span class="declaration">$1</span>');
     }
 
     // JAVASCRIPT KEYWORDS
