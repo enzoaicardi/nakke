@@ -324,7 +324,6 @@ main.doc-page{
                 margin-bottom: var(--gap-normal);
             }
             .doc-content .content > *:first-child{margin-bottom: 0;}
-            .doc-content .content > *:last-child{margin-top: 0;}
 
                 .doc-content .doc-code-box{
                     margin-top: var(--gap-normal);
