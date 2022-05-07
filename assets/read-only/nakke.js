@@ -595,7 +595,7 @@ function nakkeHighlightCode(code, lang){
         var matches = code.match(/(&lt;\/?)(.+?)(&gt;)/gi);
 
         for(var i in matches){
-            var str = matches[i].replace(/([-a-z0-9]+)(=)/gi, '<span class="attribute">$1</span><span class="declaration">$2</span>')
+            var str = matches[i].replace(/([-a-z0-9:]+)(=)/gi, '<span class="attribute">$1</span><span class="declaration">$2</span>')
                                 .replace(/(&lt;\/?(!--)?)(.+?)((--)?&gt;)/gi, '<span class="declaration">$1</span><span class="tag">$3</span><span class="declaration">$4</span>');
             
             code = code.replace(matches[i], str);

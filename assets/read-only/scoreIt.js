@@ -11,8 +11,9 @@ function scoreIt(value, object, options){
     var array = [];
 
     // define options by default
-    var path = options?.path || [];
-    var sortKey = options?.sortKey || false;
+    options = options || {};
+    var path = options.path || [];
+    var sortKey = options.sortKey || false;
     var u = 0;
 
     // check every entry
