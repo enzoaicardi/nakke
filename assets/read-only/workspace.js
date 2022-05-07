@@ -97,12 +97,14 @@ function pluck(array, key) {
 
 // ES6 syntax (Chrome 60 / Firefox 55) - change syntax for more compatibility
 // spread operator on objects litterals - array litterals works fine on Chrome 45
-function groupBy(array, key) {
-    return array.reduce(function(group, element) {
-      var keyValue = element[key];
-      return { ...group, [keyValue]: [...((typeof group[keyValue] == 'undefined' || group[keyValue] == null) ? [] : group[keyValue]), element] };
-    }, {});
-}
+/*
+  function groupBy(array, key) {
+      return array.reduce(function(group, element) {
+        var keyValue = element[key];
+        return { ...group, [keyValue]: [...((typeof group[keyValue] == 'undefined' || group[keyValue] == null) ? [] : group[keyValue]), element] };
+      }, {});
+  }
+*/
 
 /*
 *   Formatters
@@ -138,23 +140,26 @@ var DIVISIONS = [
     { amount: 12, name: "months" },
     { amount: Number.POSITIVE_INFINITY, name: "years" },
 ];
-var RELATIVE_DATE_FORMATTER = new Intl.RelativeTimeFormat(undefined, {
-    numeric: "auto"
-});
-function formatRelativeDate(toDate, fromDate) {
 
-    var fromDate = fromDate || new Date();
-    var duration = (toDate - fromDate) / 1000;
-  
-    for (var i = 0; i <= DIVISIONS.length; i++) {
+if(Intl.RelativeTimeFormat){
+  var RELATIVE_DATE_FORMATTER = new Intl.RelativeTimeFormat(undefined, {
+      numeric: "auto"
+  });
+  function formatRelativeDate(toDate, fromDate) {
 
-      var division = DIVISIONS[i];
+      var fromDate = fromDate || new Date();
+      var duration = (toDate - fromDate) / 1000;
+    
+      for (var i = 0; i <= DIVISIONS.length; i++) {
 
-      if (Math.abs(duration) < division.amount) {
-        return RELATIVE_DATE_FORMATTER.format(Math.round(duration), division.name);
+        var division = DIVISIONS[i];
+
+        if (Math.abs(duration) < division.amount) {
+          return RELATIVE_DATE_FORMATTER.format(Math.round(duration), division.name);
+        }
+
+        duration /= division.amount;
+
       }
-
-      duration /= division.amount;
-
-    }
+  }
 }

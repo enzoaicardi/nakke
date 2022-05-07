@@ -76,9 +76,9 @@ balise} +q "<img>" -{et de renseigner l'attribut} +q "src" -{et facultativement 
     
 
 code [title](Ajout d'image) [language](sdom)
-{img! [src](./images/lotus.webp) [height](200) [flex](center)}
+{img! [src](./images/lotus.png) [height](200) [flex](center)}
 
-img! [src](./images/lotus.webp) [height](200) [flex](center)
+img! [src](./images/lotus.png) [height](200) [flex](center)
 
 h3 "Les listes"
 

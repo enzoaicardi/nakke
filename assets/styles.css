@@ -177,7 +177,6 @@ main.doc-page{
 
             display: flex;
             align-items: center;
-            gap: var(--gap-normal);
 
             border-bottom: var(--border);
         }
@@ -213,19 +212,21 @@ main.doc-page{
         .doc-sidebar .content{
             display: flex;
             flex-direction: column;
-            gap: var(--gap-large);
+            /* gap: var(--gap-large); */
         }
 
             .doc-sidebar .content > *{
                 flex: none;
+                margin-bottom: var(--gap-large);
             }
+            .doc-sidebar .content > *:last-child{margin-bottom: 0;}
 
             .cat-content{
                 cursor: pointer;
 
                 display: flex;
                 flex-direction: column;
-                gap: var(--gap-normal);
+                /* gap: var(--gap-normal); */
 
                 margin-left: var(--gap-normal);
                 margin-top: var(--gap-medium);
@@ -236,6 +237,11 @@ main.doc-page{
                 font-size: var(--text-small);
                 --color-link: var(--color-07);
             }
+
+                .cat-content > *{
+                    margin-bottom: var(--gap-normal);
+                }
+                .cat-content > *:last-child {margin-bottom: 0;}
 
                 .cat-content a{
                     width: auto;
@@ -270,7 +276,14 @@ main.doc-page{
             flex: none;
             display: flex;
             align-items: center;
-            gap: var(--gap-normal);
+            /* gap: var(--gap-normal); */
+        }
+
+        .doc-header-left *:first-child{
+            margin-right: var(--gap-normal);
+        }
+        .doc-header-right *:last-child{
+            margin-left: var(--gap-normal);
         }
 
         .doc-content > header .doc-header-left{
