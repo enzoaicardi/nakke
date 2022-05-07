@@ -343,14 +343,14 @@ main.doc-page{
                     --color-link: var(--color-60p);
                 }
 
-        .doc-content ul,
-        .doc-content ol{
-            display: flex;
-            flex-direction: column;
-            gap: var(--gap-small);
-            margin-top: var(--gap-normal);
-            margin-bottom: calc(var(--gap-normal) * 2);
-        }   
+            .doc-content .content ul,
+            .doc-content .content ol{
+                display: flex;
+                flex-direction: column;
+                gap: var(--gap-small);
+                margin-top: var(--gap-normal);
+                margin-bottom: calc(var(--gap-normal) * 2);
+            }  
 
         .doc-content ul li,
         .doc-content ol li{
