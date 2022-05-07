@@ -417,14 +417,15 @@ main.doc-page{
     }
 
     .doc-content table{
-        table-layout: fixed;
+        table-layout: auto;
         border-collapse: collapse;
 
-        width: max-content;
+        /* width: max-content; */
         border-radius: var(--radius-small);
     }
 
         .doc-content table td{
+            display: table-cell;
             max-width: calc(var(--size-large) * 3);
             padding: var(--gap-small) var(--gap-normal);
 
