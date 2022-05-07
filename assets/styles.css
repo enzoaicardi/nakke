@@ -381,11 +381,12 @@ main.doc-page{
                 margin-right: var(--gap-medium);
             }
 
-        .doc-content ul ul,
-        .doc-content ul ol,
-        .doc-content ol ul,
-        .doc-content ol ol{
+        .doc-content .content ul ul,
+        .doc-content .content ul ol,
+        .doc-content .content ol ul,
+        .doc-content .content ol ol{
             padding-left: var(--gap-large);
+            margin-bottom: var(--gap-normal);
         }
 
         .doc-content .content img{
