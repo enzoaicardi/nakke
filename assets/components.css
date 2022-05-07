@@ -18,6 +18,13 @@ body{
     color: var(--color-03);
 }
 
+@supports not (color: hsl(0, calc(0% + 100%), 100%)) {
+    body{
+        --color-095: hsl(var(--hue), 0%, 95%);
+        --color-098: hsl(var(--hue), 0%, 98%);
+    }
+}
+
 ::-webkit-scrollbar {
     width: auto;
     height: calc(var(--size-small) / 5);

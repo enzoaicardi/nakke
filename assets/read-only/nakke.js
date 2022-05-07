@@ -633,7 +633,7 @@ function nakkeHighlightCode(code, lang){
     code = code.replace(/( ?\&quot\;(\\\&quot\;|.[^&\\]?)*?\&quot\;)/gi, '<span class="string">$1</span>');
     
     if(lang !== 'sdom'){
-        code = code.replace(/( ?&#39;.*?&#39;)/gi, '<span class="string">$1</span>')
+        code = code.replace(/( ?\&\#39\;(\\\&\#39\;|.[^&\\]?)*?\&\#39\;)/gi, '<span class="string">$1</span>')
                    .replace(/( ?`.*?`)/gi, '<span class="string">$1</span>');
     }
 

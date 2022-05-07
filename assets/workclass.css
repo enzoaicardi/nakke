@@ -122,6 +122,24 @@ body{
 
 }
 
+@supports not (color: hsl(0, calc(0% + 100%), 100%)) {
+    body{
+        --color-00: hsla(var(--hue), var(--saturation), 0%,   var(--opacity));
+        --color-01: hsla(var(--hue), var(--saturation), 10%,  var(--opacity));
+        --color-02: hsla(var(--hue), var(--saturation), 20%,  var(--opacity));
+        --color-03: hsla(var(--hue), var(--saturation), 30%,  var(--opacity));
+        --color-05: hsla(var(--hue), var(--saturation), 50%,  var(--opacity));
+        --color-07: hsla(var(--hue), var(--saturation), 70%,  var(--opacity));
+        --color-08: hsla(var(--hue), var(--saturation), 80%,  var(--opacity));
+        --color-09: hsla(var(--hue), var(--saturation), 90%,  var(--opacity));
+        --color-1:  hsla(var(--hue), var(--saturation), 100%, var(--opacity));
+
+        --color-60p: hsl(var(--hue), 90%, 60%);
+        --color-30p: hsl(var(--hue), 90%, 70%);
+        --color-10p: hsl(var(--hue), 90%, 80%);
+    }
+}
+
 body.dark_mode{
     --s: 115%;
     --m: 1;
