@@ -329,7 +329,8 @@ h5{
         display: flex;
         align-items: center;
 
-        width: -moz-max-content;
+        width: max-content;
+        min-width: 100%;
         height: var(--size-small);
         padding: 0 var(--gap-medium);
 
@@ -340,7 +341,14 @@ h5{
 
     .doc-table p > *{
         flex: none;
-        width: -moz-max-content;
+        width: max-content;
+    }
+
+    @supports not (width: max-content){
+        .doc-table p,
+        .doc-table p > *{
+            width: -moz-max-content;
+        }
     }
     
     .doc-table-col1 p{
