@@ -523,6 +523,11 @@ main.doc-page{
             margin-right: var(--gap-normal);
         }
 
+        .doc-available-versions > h5{
+            flex: 0 1 auto;
+            word-wrap: break-word;
+        }
+
         .doc-available-versions > p,
         .doc-available-versions > a{
             padding: 0 var(--gap-normal);
