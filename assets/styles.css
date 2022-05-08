@@ -511,8 +511,8 @@ main.doc-page{
         margin: 0;
         padding: var(--gap-normal) var(--gap-mega);
 
-        color: var(--color-1);
-        background-color: var(--color-03);
+        color: var(--color-03);
+        background-color: var(--color-09);
     }
     .doc-content .doc-available-versions.top{
         margin-bottom: var(--gap-large);
@@ -530,9 +530,10 @@ main.doc-page{
 
         .doc-available-versions > p,
         .doc-available-versions > a{
+            line-height: 2;
             padding: 0 var(--gap-normal);
             border-radius: var(--radius-small);
-            background-color: var(--color-02);
+            background-color: var(--color-08);
         }
 
     /* search */

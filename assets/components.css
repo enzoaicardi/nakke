@@ -178,6 +178,7 @@ h5{
 }
 
 [data-core-marker]{
+    flex: none;
     display: inline-block;
     height: var(--size-small);
     padding: 0 var(--gap-small);
