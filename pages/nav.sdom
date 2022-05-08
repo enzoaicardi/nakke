@@ -37,12 +37,12 @@ section [title](Title of the section) [char](#)
     # prendra automatiquement la valeur du contenu textuel
     a "index" 
     
-    # Il est cependant conseillé de renseigné un attribut page
+    # Il est cependant conseillé de renseigner un attribut page
     # cet attribut doit représenter le chemin jusqu'à la page sans le .sdom
     a "welcome" [page](default-files/index)
 
     # Il est aussi possible de renseigner une courte description
     # qui permettra un référencement dans la barre de recherche
     a "default" [page](default-files/index)
-        # Description (facultatif)
+        # Description (facultatif) dans <q></q>
         q \{pages par defaut de la documentation nakke.\}}

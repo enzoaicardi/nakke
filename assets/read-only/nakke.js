@@ -1,9 +1,12 @@
 
 var body = document.body;
-var version = Number(qs('.doc-version').textContent) || 1;
 var docTitle = qs('title').textContent;
 var colorMode = localStorage.getItem('nakke-color-mode');
 if(colorMode) body.setAttribute('class', 'ns ' + colorMode);
+
+var nakkeVersion = qs('.doc-version').textContent;
+var versions = {};
+var version = getVersion();
 
 // SWITCH MODE
 
@@ -79,6 +82,23 @@ globalListener('click', '.cat-content a, .doc-content .doc-content-nav a, .doc-c
     burgerDo('close');
 
 }, {});
+
+// CHANGE VERSION CLICK
+globalListener('click', '.doc-content .doc-available-versions a', function(e){
+
+    e.preventDefault();
+    var ver = e.target.getAttribute('data-version') || false;
+    if(!ver) {return;}
+
+    changeVersion(ver);
+
+}, {});
+
+function changeVersion(str){
+    version.string = str;
+    nakkeImport('sidebar', qs('.doc-sidebar .content'), true, true);
+    nakkeImport(currentPage);
+}
 
 // SUMMARY ANCHOR CLICK
 var easingCubic = function(x){ return 1 - Math.pow(1 - x, 3); }
@@ -205,6 +225,13 @@ if (navigator.clipboard) {
 window.addEventListener('popstate', function(e){
 
     var pageName = e.state ? e.state.page ? e.state.page : '404' : '404';
+    var ver = e.state.version;
+
+    if(version.string !== ver){
+        version.string = ver;
+        nakkeImport('sidebar', qs('.doc-sidebar .content'), true, true);
+    }
+
     nakkeImport(pageName, false, false, true);
 
 }, {passive: true});
@@ -224,7 +251,8 @@ function nakkeImport(name, container, sidebar, state){
     fetch(url)
     .then(function(response) {
         if(response.ok){
-            if(!state) {history.pushState({page: name}, '', '?page='+name);}
+            if(!state) {history.pushState({page: name, version: version.string}, '', '?page='+name+'&version='+version.string);}
+            version = getVersion(version.string);
             loadStatus('50', sidebar);
             return response.text();
         }else{
@@ -278,14 +306,22 @@ function nakkeParseSideBar(){
                 }
 
                 var pageParam = link.getAttribute('page') || link.textContent.toLowerCase();
-                var dp = link.getAttribute('dep');
-                var nw = link.getAttribute('new');
+                var dp = link.getAttribute('dep'); if(dp) {versions[dp] = true;}
+                var nw = link.getAttribute('new'); if(nw) {versions[nw] = true;}
+
+                if(nw && Number(nw) > version.number) {continue;}
                 
                 obj.name = link.textContent;
                 obj.page = pageParam;
                 searchContent.push(obj);
-                
-                HTML += '<div'+ (dp ? (' dep="'+dp+'"') : '') + (nw ? (' new="'+nw+'"') : '') +'><a href="?page='+pageParam+'" data-page="'+pageParam+'">'+link.textContent+'</a></div>';
+
+                var attr = (dp ? (' dep="'+dp+'"') : '') + (nw ? (' new="'+nw+'"') : '');
+                var inner = '<a href="?page='+pageParam+'" data-page="'+pageParam+'">'+link.textContent+'</a>';
+                var value = ((dp && dp <= version.number) ? 'dep' : (nw && nw >= version.number) ? 'new' : false);
+                    
+                inner = '<div'+attr+' class="version-block">'+ (value ? ('<div class="version-marker '+value+'">'+ value +'</div>') : '') +'<div class="version-element-content">' + inner + '</div></div>';
+
+                HTML += inner;
             
             }
 
@@ -374,15 +410,25 @@ function nakkeParseContent(){
 
     docContent.insertAdjacentHTML('beforeend', nav + footer);
 
+    // display all versions
+    versions = {}; versions[nakkeVersion] = true;
+    var versionElements = qsa('[dep], [new]', docContent);
+    versionDisplay(versionElements);
+
+    versions = Object.keys(versions).sort(function(a, b){return (Number(b) - Number(a));});
+
+    var ver = '<div class="doc-available-versions"><h5>Versions disponibles : </h5>';
+    for(num of versions){
+        if(num === version.string) { ver += '<p>'+num+'</p>'; continue; }
+        ver += '<a data-version="'+num+'" href="?page=' + currentPage + '&version=' + num + '">'+num+'</a>';
+    }
+    ver += '</div>';
+
+    docContent.insertAdjacentHTML('beforeend', ver);
+
     // generate summary at the end because elements could be
     // resized or tags can change (this can effect offsetTop)
     nakkeGenerateSummary();
-
-    var versionElements = qsa('[dep], [new]');
-
-    for(el of versionElements){
-        versionInfo(el);    
-    }
 
     function toDataAttr(elems, attr){
         for(var el of elems){
@@ -407,14 +453,59 @@ function nakkeParseContent(){
 
 }
 
-function versionInfo(el){
-    var dp = Number(el.getAttribute('dep')) || false; el.removeAttribute('dep');
-    var nw = Number(el.getAttribute('new')) || false; el.removeAttribute('new');
+function versionDisplay(els){
 
-    var value = ((dp && dp <= version) ? 'dep' : (nw && nw >= version) ? 'new' : false);
+    function addVersion(el){
 
-    if(!value) {return;}
-    el.innerHTML = '<div class="version-block"><div class="version-marker '+value+'">'+ value +'</div><div>' + el.innerHTML + '</div></div>';
+        var dp = el.getAttribute('dep'); el.removeAttribute('dep');
+        var nw = el.getAttribute('new'); el.removeAttribute('new');
+
+        if(dp) {versions[dp] = true; dp = Number(dp);}
+        if(nw) {versions[nw] = true; nw = Number(nw);}
+
+        return {dp: dp, nw: nw};
+
+    }
+
+    for(var i=0; i<els.length; i++){
+
+        var el = els[i];
+
+        var ver = addVersion(el), dp = ver.dp, nw = ver.nw; 
+        // si l'élément a des attributs vides ou n'existe plus
+        if(!dp && !nw){continue;}
+
+        if(nw && nw > version.number){
+
+            function deleteAfter(elem, level){
+
+                var nextNode = elem.nextSibling; 
+
+                if(nextNode.matches(level + ', .doc-content-nav, footer')){return;}
+                if(nextNode.matches('h2, h3, h4')){addVersion(nextNode);}
+
+                deleteAfter(nextNode, level); nextNode.remove();
+
+            }
+
+            if(el.matches('h2, h3, h4')){
+                var level = el.matches('h2') ? 'h2' : 
+                            el.matches('h3') ? 'h2, h3' : 
+                            el.matches('h4') ? 'h2, h3, h4' : 'h2, h3, h4';
+
+                deleteAfter(el, level);
+            }
+
+            el.remove();
+            return;
+        }
+
+        var value = ((dp && dp <= version.number) ? 'dep' : (nw && nw >= version.number) ? 'new' : false);
+        if(!value){continue;}
+        el.innerHTML = '<div class="version-block"><div class="version-marker '+value+'">'+ value +'</div><div class="version-element-content">' + el.innerHTML + '</div></div>';
+
+    }
+
 }
 
 // generate summary
@@ -426,13 +517,15 @@ function nakkeGenerateSummary(){
     var HTML = ''; var u = 0;
 
     for(var title of titles){
-        var slug = slugIt(title.textContent);
+        var versionContent = qs('.version-element-content', title);
+        var content = versionContent ? versionContent.textContent : title.textContent;
+        var slug = slugIt(content);
         var uuid = slug + '-' + (++u);
         var level = title.tagName.toLowerCase();
 
         title.setAttribute('id', uuid);
         title.setAttribute('data-slug', slug);
-        HTML += '<a class="'+level+''+(u===1 ? ' v' : '')+'" data-anchor="'+uuid+'">'+escapeHTML(title.textContent)+'</a>';
+        HTML += '<a class="'+level+''+(u===1 ? ' v' : '')+'" data-anchor="'+uuid+'">'+escapeHTML(content)+'</a>';
     }
 
     summaryContent.innerHTML = HTML;
@@ -503,15 +596,19 @@ searchInput.addEventListener('keydown', function(e){
 
     if(e.key === 'Enter'){
     
+        burgerDo('close');
+
+        if(/^@[0-9]+(\.[0-9]+)?$/.test(t.value)){
+            var ver = t.value.substring(1);
+            changeVersion(ver);
+        }
+
         if(t.value){
             searchInFiles(t.value);
+            return;
         }
 
-        if(!t.value){
-            nakkeImport(currentPage);
-        }
-
-        burgerDo('close');
+        nakkeImport(currentPage);
 
     }
 
@@ -572,14 +669,27 @@ function searchScoreUpdate(str){
  * @returns the current page name
  */
 function getCurrentPage(){
+    var page = getParam('page', 'index');
+    currentPage = page;
+    return page;
+}
+
+function getVersion(current){
+    var string = current || getParam('version', nakkeVersion);
+    var number = Number(string);
+    return {string: string, number: number};
+}
+
+function getParam(param, original){
+
     var params = window.location.search;
-    if(!params) {return 'index';}
+    if(!params) {return original;}
 
     var urlParams = new URLSearchParams(params);
     
-    var page = urlParams.get('page') || 'index';
-    currentPage = page;
-    return page;
+    var value = urlParams.get(param) || original;
+    return value;
+
 }
 
 function nakkeHighlightCode(code, lang){

@@ -1,0 +1,13 @@
+h1 "Recherche"
+
+p {Il est possible d'effectuer des recherches simples sur la documentation, nous allons détailler la procédure dans cette section.}
+
+h2 "Rechercher une page"
+
+p {Pour rechercher un page il suffit de se rendre dans le champ de recherche, d'écrire le terme à rechercher et d'appuyer sur} +q "Entrée"
+
+p {Nakke va rechercher tout les termes proches de ce dernier dans le titre des pages mais aussi dans leur description si elles en ont une.}
+
+h2 "Rechercher une version"
+
+p {Pour acceder à une version en particulier il suffit de rentrer dans le champ de recherche le caractère} +q "@" -{suivi du numéro de version, et d'appuyer sur} +q "Entrée"

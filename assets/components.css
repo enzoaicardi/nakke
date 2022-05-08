@@ -81,14 +81,10 @@ h5{
     /* gap: var(--gap-small); */
 }
 
-.doc-content .version-block{
-    gap: var(--gap-normal);
-}
-
 .version-marker{
     flex: none;
     padding: 0 var(--gap-small);
-    margin-right: var(--gap-small);
+    margin-right: var(--gap-normal);
 
     line-height: inherit;
     color: var(--color-30p);
@@ -97,6 +93,10 @@ h5{
 
     border-radius: var(--radius-small);
     background-color: var(--color-095);
+}
+
+.doc-sidebar .version-marker{
+    margin-right: var(--gap-small);
 }
 
 .version-marker.new{

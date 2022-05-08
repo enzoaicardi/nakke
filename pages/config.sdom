@@ -12,9 +12,21 @@ h3 "Les couleurs et le titre"
 p {Tout d'abord rendez-vous dans le fichier} +q "index.html" -{vous y trouverez des
 instructions concernant les éléments à modifier.}
 
-h4 "Titre et pied de page"
+h4 "Titre"
 
-p {Pour modifier le titre du site il suffit simplement d'éditer la balise} +q "<title>"
+p {Pour modifier le titre du site il suffit simplement d'éditer la balise} +q "<title>" -{. Le titre change de façon dynamique, c'est à dire que le nom de la page courante va s'afficher au début du titre, pensez donc à laisser un espace.}
+
+h4 "Nom"
+
+p {Pour modifier le nom qui s'affichera a coté de votre logo rendez vous ici :}
+
+code [title](Changer le nom de la documentation) [language](sdom)
+{# Change header title here
+p.doc-site-title "Nakke."}
+
+p {Et changez "Nakke." par ce que vous voulez.}
+
+h4 "Pied de page"
 
 p {Pour modifier le pied de page du contenu principal, rendez-vous à la fin du fichier, vous y
 trouverez alors la variable} +q "var footer = ..." -{que vous pouvez aussi modifier en suivant
@@ -36,20 +48,30 @@ et suivez les instructions.}
 
 code [title](index.html) [language](css) [spaces](4)
 {    body\{
-        --color-60p: hsl(0, 100%, calc(var(--s) - 50% * var(--m)));
+        --color-60p: hsl(0, 100%, 60%);
         --color-30p: hsl(0, 80%, 50%);
         --color-30p: hsl(0, 80%, 20%);
     \}}
 
 p {Pour modifier la teinte et la saturation des couleurs intermédiaires (habituellement les gris)
-il vous faut éditer les variable} +q "--hue" -{et} +q "--saturation"
+il vous faut éditer les variable} +q "--hue" -{et} +q "--saturation" -{conformément aux valeurs } +a "HSL()" [href](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl)
 
 h3 "Le logo et l'icone du site"
 
 p {Pour modifier le logo du site, rendez-vous à la racine de la documentation et changez}
     q "logo.svg"
-{par votre logo.}
+{par votre logo au format svg.}
 
 p {Il en va de même pour l'icone de votre site, il vous suffit de remplacer}
     q "favicon.png"
-{par votre icone.}
+{par votre icone au format png. } +a "Favicon sur MDN" [href](https://developer.mozilla.org/fr/docs/Glossary/Favicon) -{.}
+
+h3 "La version"
+
+p {Pour changer la version de votre documentation rendez vous ici :}
+
+code [title](Changer le nom de la documentation) [language](sdom)
+{# Change version (only one dot)
+div.doc-version "0.1"}
+
+p {Et changez le numéro de version en fonction de votre application. Le numéro de version n'est actuellement utilisé que pour les éléments nouveaux et dépréciés ( } +a "voir : structure de page" [page](page) -{), mais pourra possiblement trouver une application future dans un historique de version.}
