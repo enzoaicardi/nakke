@@ -410,21 +410,32 @@ function nakkeParseContent(){
 
     docContent.insertAdjacentHTML('beforeend', nav + footer);
 
-    // display all versions
+    // reset version list and add default version
     versions = {}; versions[nakkeVersion] = true;
+
+    // check version elements
     var versionElements = qsa('[dep], [new]', docContent);
     versionDisplay(versionElements);
 
+    // sort version list (high to low)
     versions = Object.keys(versions).sort(function(a, b){return (Number(b) - Number(a));});
 
-    var ver = '<div class="doc-available-versions"><h5>Versions disponibles : </h5>';
+    var ver = '<div class="doc-available-versions"><h5>Available versions : </h5>';
     for(num of versions){
         if(num === version.string) { ver += '<p>'+num+'</p>'; continue; }
         ver += '<a data-version="'+num+'" href="?page=' + currentPage + '&version=' + num + '">'+num+'</a>';
     }
     ver += '</div>';
 
+    // insert version list
     docContent.insertAdjacentHTML('beforeend', ver);
+
+    if(version.string !== nakkeVersion){
+        var ver = '<div class="doc-available-versions top"><h5>You are watching an earlier version of the document, to return at current version : </h5>';
+        ver += '<a data-version="'+nakkeVersion+'" href="?page=' + currentPage + '&version=' + nakkeVersion + '">'+nakkeVersion+'</a></div>';
+        docContent.insertAdjacentHTML('afterbegin', ver);
+    }
+
 
     // generate summary at the end because elements could be
     // resized or tags can change (this can effect offsetTop)

@@ -514,6 +514,10 @@ main.doc-page{
         color: var(--color-1);
         background-color: var(--color-03);
     }
+    .doc-content .doc-available-versions.top{
+        margin-bottom: var(--gap-large);
+    }
+
         .doc-available-versions > *{
             flex: none;
             margin-right: var(--gap-normal);
