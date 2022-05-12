@@ -184,7 +184,7 @@ h3 "Les éléments d'information"
 
 p {Les éléments d'information sont simplement des balises} +q "<dfn></dfn>"
 
-code [title](Tableaux) [language](sdom)
+code [title](Element d'information) [language](sdom)
 {dfn "Ceci est un élément d'information"}
 
 dfn "Ceci est un élément d'information"
