@@ -104,7 +104,7 @@ function changeVersion(str){
 var easingCubic = function(x){ return 1 - Math.pow(1 - x, 3); }
 
 var scrollAnimation = crimson({
-    duration: 800,
+    duration: 600,
     easing: easingCubic
 });
 

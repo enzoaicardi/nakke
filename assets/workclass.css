@@ -119,6 +119,7 @@ body{
     --gap-mega:     calc(var(--gap-base) * 40);
 
     font-family: var(--font-default);
+    line-height: 1.8;
 
 }
 
@@ -159,7 +160,7 @@ body.grey_mode{
 
 *{
     /* this can affect materials-icons */
-    line-height: 1.8;
+    line-height: inherit;
 }
 
 .material-icons,

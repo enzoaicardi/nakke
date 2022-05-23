@@ -124,6 +124,7 @@ body > header{
     .doc-site-title{
         flex: none;
         width: max-content;
+        line-height: normal;
         font-weight: var(--font-medium);
     }
 
@@ -530,8 +531,13 @@ main.doc-page{
 
         .doc-available-versions > p,
         .doc-available-versions > a{
-            line-height: 2;
+            height: var(--size-small);
             padding: 0 var(--gap-normal);
+
+            display: flex;
+            align-items: center;
+            line-height: normal;
+
             border-radius: var(--radius-small);
             background-color: var(--color-08);
         }

@@ -179,11 +179,13 @@ h5{
 
 [data-core-marker]{
     flex: none;
-    display: inline-block;
+    display: flex;
+    align-items: center;
     height: var(--size-small);
     padding: 0 var(--gap-small);
     
-    line-height: calc(var(--size-small) - 2px);
+    line-height: normal;
+
     font-family: var(--font-mono);
     font-size: var(--text-normal);
     font-weight: var(--font-regular);
@@ -195,18 +197,18 @@ h5{
 }
 
 [data-core-marker].material-icons{
-    line-height: var(--size-small);
     font-family: 'Material Icons';
 }
 
 [data-core-marker="code"]{
     color: var(--color-30p);
     display: inline;
+    vertical-align: baseline;
+
     margin: 0 var(--gap-small);
-    padding: calc(var(--gap-small) / 2) var(--gap-small);
     
-    line-height: 1.8;
     font-size: var(--text-small);
+    line-height: inherit;
 }
 
     table [data-core-marker="code"]{
@@ -225,6 +227,7 @@ h5{
 [data-core-catname]{
     display: flex;
     align-items: center;
+    line-height: normal;
     /* gap: var(--gap-normal); */
 
     font-weight: var(--font-medium);
